@@ -1,0 +1,12 @@
+[package]
+name = "x86_intr"
+version = "0.1.0-alpha.1"
+edition = "2024"
+rust-version = "1.87"
+documentation = "https://docs.rs/x86_intr"
+repository = "https://github.com/bobbothe2nd/x86_intr"
+readme = "README.md"
+description = "GPU graph compilation to fuse linear tensor operations"
+license = "MIT"
+keywords = ["gpu", "autograd", "tensor", "machine-learning", "ai"]
+categories = ["compilers", "mathematics"]
