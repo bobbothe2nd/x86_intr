@@ -1,4 +1,4 @@
-use core::arch::asm;
+use core::arch::{asm, x86_64::__m512i};
 
 /// Invalidates and flushes the cache line that contains `p` from all levels of the cache hierarchy.
 ///
@@ -51,7 +51,7 @@ pub unsafe fn _mm_cldemote(p: *const u8) {
     }
 }
 
-/// Hint to hardware to move the cache line containing m8 to a more distant level of the cache without writing back to memory.
+/// Zeros entire cache line containing `p`.
 ///
 /// Requires `clzero` feature
 #[inline(always)]
@@ -103,16 +103,28 @@ pub unsafe fn _directstoreu_u64(dst: *mut u64, val: u64) {
 ///
 /// Requires `movdir64b` feature
 ///
-/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_directstoreu_u64)
+/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_movdir64b)
 #[inline(always)]
-pub unsafe fn _movdir64b(dst: *mut u64, src: *const u8) {
+pub unsafe fn _movdir64b(dst: *mut __m512i, src: *const __m512i) {
     unsafe {
         asm!(
-            "movdir64b {dst:r}, [{src:r}]",
-            dst = in(reg) dst,
+            "movdir64b {src:r}, [{dst:r}]",
             src = in(reg) src,
+            dst = in(reg) dst,
             options(nostack, preserves_flags),
         );
+    }
+}
+
+/// Write back and do not flush internal caches. Initiate writing-back without flushing of external caches.
+///
+/// Requires `` feature
+///
+/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_wbnoinvd)
+#[inline(always)]
+pub unsafe fn _wbnoinvd() {
+    unsafe {
+        asm!("wbnoinvd", options(nostack, preserves_flags),);
     }
 }
 

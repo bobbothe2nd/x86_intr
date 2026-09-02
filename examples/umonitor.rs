@@ -5,7 +5,10 @@ use std::sync::{Arc, Barrier};
 use std::thread;
 use std::time::{Duration, Instant};
 
-use x86_intr::{_umonitor, _umwait, is_cpuid_feature_detected};
+use x86_intr::{
+    arch::{_umonitor, _umwait},
+    is_cpuid_feature_detected,
+};
 
 const WARMUP: usize = 10;
 const SAMPLES: usize = 100;
