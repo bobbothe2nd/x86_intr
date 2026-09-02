@@ -5,7 +5,7 @@ use core::arch::asm;
 /// Requires `enqcmd` feature
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_enqcmd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _enqcmd(dst: *mut u64, src: *const u64) {
     unsafe {
         asm!(
@@ -22,7 +22,7 @@ pub unsafe fn _enqcmd(dst: *mut u64, src: *const u64) {
 /// Requires `enqcmd` feature
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_enqcmds)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _enqcmds(dst: *mut u64, src: *const u64) {
     unsafe {
         asm!(

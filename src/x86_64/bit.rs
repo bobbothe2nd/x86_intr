@@ -11,7 +11,7 @@ pub unsafe fn _mm_popcnt_u32(a: u32) -> i32 {
 
     unsafe {
         asm!(
-            "popcnt {dst:e} {src:e}",
+            "popcnt {dst:e}, {src:e}",
             dst = inout(reg) dst,
             src = in(reg) a,
             options(nostack, preserves_flags)
@@ -32,7 +32,7 @@ pub unsafe fn _mm_popcnt_u64(a: u64) -> i64 {
 
     unsafe {
         asm!(
-            "popcnt {dst:r} {src:r}",
+            "popcnt {dst:r}, {src:r}",
             dst = inout(reg) dst,
             src = in(reg) a,
             options(nostack, preserves_flags)
