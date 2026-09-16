@@ -1,8 +1,6 @@
 pub(crate) mod feature;
 
-pub use feature::test;
-
-pub use feature::vendor;
+pub use feature::{test, vendor};
 
 macro_rules! polymorphic {
     {

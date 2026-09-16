@@ -123,7 +123,7 @@ pub unsafe fn _monitorx(p: *const u8, extensions: u32, hints: u32) {
 /// This obviously hurts performance. Thats why [`mwaitx_no_timeout`] exists.
 #[inline(always)]
 pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
-    let mut rbx: u64;
+    let rbx: u64;
 
     unsafe {
         asm!(

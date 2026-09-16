@@ -7,6 +7,38 @@
 /// ```
 #[macro_export]
 macro_rules! is_cpuid_feature_detected {
+    (CPUID.1.0:ecx[$bit:tt]) => {
+        ($crate::test::cpuid_1_0_ecx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.1.0:edx[$bit:tt]) => {
+        ($crate::test::cpuid_1_0_edx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.0:eax[$bit:tt]) => {
+        ($crate::test::cpuid_7_0_eax() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.0:ebx[$bit:tt]) => {
+        ($crate::test::cpuid_7_0_ebx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.0:ecx[$bit:tt]) => {
+        ($crate::test::cpuid_7_0_ecx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.0:edx[$bit:tt]) => {
+        ($crate::test::cpuid_7_0_edx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.0x8000_0001 .0:edx[$bit:tt]) => {
+        ($crate::test::cpuid_8000_0001_0_edx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.0x8000_0008 .0:ebx[$bit:tt]) => {
+        ($crate::test::cpuid_8000_0008_0_ebx() & (1u32 << $bit)) != 0u32
+    };
+
     (CPUID.$leaf:tt.$subleaf:tt:$reg:ident[$bit:tt]) => {
         (::core::arch::x86_64::__cpuid_count($leaf, $subleaf).$reg & (1u32 << $bit)) != 0u32
     };
@@ -15,7 +47,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[0])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[0])
         }
     };
 
@@ -23,7 +55,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[1])
         }
     };
 
@@ -31,7 +63,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[2])
         }
     };
 
@@ -39,7 +71,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[3])
         }
     };
 
@@ -47,7 +79,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[4])
         }
     };
 
@@ -55,7 +87,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[5])
         }
     };
 
@@ -63,7 +95,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[6])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[6])
         }
     };
 
@@ -71,7 +103,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[7])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[7])
         }
     };
 
@@ -79,7 +111,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[8])
         }
     };
 
@@ -87,7 +119,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[9])
         }
     };
 
@@ -95,7 +127,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[11])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[11])
         }
     };
 
@@ -103,7 +135,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[12])
         }
     };
 
@@ -111,7 +143,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[13])
         }
     };
 
@@ -119,7 +151,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[14])
         }
     };
 
@@ -127,7 +159,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[15])
         }
     };
 
@@ -135,7 +167,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[16])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[16])
         }
     };
 
@@ -143,7 +175,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[17])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[17])
         }
     };
 
@@ -151,7 +183,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[18])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[18])
         }
     };
 
@@ -159,7 +191,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[19])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[19])
         }
     };
 
@@ -167,7 +199,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[21])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[21])
         }
     };
 
@@ -175,7 +207,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[22])
         }
     };
 
@@ -183,7 +215,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[23])
         }
     };
 
@@ -191,7 +223,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[24])
         }
     };
 
@@ -199,7 +231,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[25])
         }
     };
 
@@ -207,7 +239,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[26])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[26])
         }
     };
 
@@ -215,7 +247,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[27])
         }
     };
 
@@ -223,7 +255,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[28])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[28])
         }
     };
 
@@ -231,7 +263,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[29])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[29])
         }
     };
 
@@ -239,7 +271,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[30])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[30])
         }
     };
 
@@ -247,7 +279,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:edx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:edx[31])
         }
     };
 
@@ -255,7 +287,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[0])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[0])
         }
     };
 
@@ -263,7 +295,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[1])
         }
     };
 
@@ -271,7 +303,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[2])
         }
     };
 
@@ -279,7 +311,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[3])
         }
     };
 
@@ -287,7 +319,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[4])
         }
     };
 
@@ -295,7 +327,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[5])
         }
     };
 
@@ -303,7 +335,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[6])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[6])
         }
     };
 
@@ -311,7 +343,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[7])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[7])
         }
     };
 
@@ -319,7 +351,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[8])
         }
     };
 
@@ -327,7 +359,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[9])
         }
     };
 
@@ -335,7 +367,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[10])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[10])
         }
     };
 
@@ -343,7 +375,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[11])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[11])
         }
     };
 
@@ -351,7 +383,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[12])
         }
     };
 
@@ -359,7 +391,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[13])
         }
     };
 
@@ -367,7 +399,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[14])
         }
     };
 
@@ -375,7 +407,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[15])
         }
     };
 
@@ -383,7 +415,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[17])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[17])
         }
     };
 
@@ -391,7 +423,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[18])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[18])
         }
     };
 
@@ -399,7 +431,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[19])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[19])
         }
     };
 
@@ -407,7 +439,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[20])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[20])
         }
     };
 
@@ -415,7 +447,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[21])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[21])
         }
     };
 
@@ -423,7 +455,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[22])
         }
     };
 
@@ -431,7 +463,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[23])
         }
     };
 
@@ -439,7 +471,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[24])
         }
     };
 
@@ -447,7 +479,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[25])
         }
     };
 
@@ -455,7 +487,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[26])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[26])
         }
     };
 
@@ -463,7 +495,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[27])
         }
     };
 
@@ -471,7 +503,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[28])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[28])
         }
     };
 
@@ -479,7 +511,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[20])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[20])
         }
     };
 
@@ -487,7 +519,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[30])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[30])
         }
     };
 
@@ -495,7 +527,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() == 0 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.1 .0:ecx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.1.0:ecx[31])
         }
     };
 
@@ -503,7 +535,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[0])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[0])
         }
     };
 
@@ -511,7 +543,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[1])
         }
     };
 
@@ -519,7 +551,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[2])
         }
     };
 
@@ -527,7 +559,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[3])
         }
     };
 
@@ -535,7 +567,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[4])
         }
     };
 
@@ -543,7 +575,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[5])
         }
     };
 
@@ -551,7 +583,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[6])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[6])
         }
     };
 
@@ -559,7 +591,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[7])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[7])
         }
     };
 
@@ -567,7 +599,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[8])
         }
     };
 
@@ -575,7 +607,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[9])
         }
     };
 
@@ -583,7 +615,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[10])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[10])
         }
     };
 
@@ -591,7 +623,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[11])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[11])
         }
     };
 
@@ -600,7 +632,7 @@ macro_rules! is_cpuid_feature_detected {
         if cpuid.eax < 7 || $crate::arch::is_intel_raw(cpuid) {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[12])
         }
     }};
 
@@ -609,7 +641,7 @@ macro_rules! is_cpuid_feature_detected {
         if cpuid.eax < 7 || $crate::arch::is_amd_raw(cpuid) {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[12])
         }
     }};
 
@@ -617,7 +649,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[13])
         }
     };
 
@@ -625,7 +657,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[14])
         }
     };
 
@@ -634,7 +666,7 @@ macro_rules! is_cpuid_feature_detected {
         if cpuid.eax < 7 || $crate::arch::is_intel_raw(cpuid) {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[15])
         }
     }};
 
@@ -643,7 +675,7 @@ macro_rules! is_cpuid_feature_detected {
         if cpuid.eax < 7 || $crate::arch::is_amd_raw(cpuid) {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[15])
         }
     }};
 
@@ -651,7 +683,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[16])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[16])
         }
     };
 
@@ -659,7 +691,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[17])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[17])
         }
     };
 
@@ -667,7 +699,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[18])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[18])
         }
     };
 
@@ -675,7 +707,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[19])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[19])
         }
     };
 
@@ -683,7 +715,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[20])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[20])
         }
     };
 
@@ -691,7 +723,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[21])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[21])
         }
     };
 
@@ -699,7 +731,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[22])
         }
     };
 
@@ -707,7 +739,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[23])
         }
     };
 
@@ -715,7 +747,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[24])
         }
     };
 
@@ -723,7 +755,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[25])
         }
     };
 
@@ -731,7 +763,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[26])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[26])
         }
     };
 
@@ -739,7 +771,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[27])
         }
     };
 
@@ -747,7 +779,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[28])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[28])
         }
     };
 
@@ -755,7 +787,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[29])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[29])
         }
     };
 
@@ -763,7 +795,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[30])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[30])
         }
     };
 
@@ -771,7 +803,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ebx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ebx[31])
         }
     };
 
@@ -779,7 +811,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[0])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[0])
         }
     };
 
@@ -787,7 +819,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[1])
         }
     };
 
@@ -795,7 +827,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[2])
         }
     };
 
@@ -803,7 +835,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[3])
         }
     };
 
@@ -811,7 +843,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[4])
         }
     };
 
@@ -819,7 +851,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[5])
         }
     };
 
@@ -827,7 +859,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[6])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[6])
         }
     };
 
@@ -835,7 +867,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[7])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[7])
         }
     };
 
@@ -843,7 +875,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[7])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[7])
         }
     };
 
@@ -851,7 +883,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[8])
         }
     };
 
@@ -859,7 +891,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[9])
         }
     };
 
@@ -867,7 +899,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[10])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[10])
         }
     };
 
@@ -875,7 +907,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[11])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[11])
         }
     };
 
@@ -883,7 +915,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[12])
         }
     };
 
@@ -891,7 +923,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[13])
         }
     };
 
@@ -899,7 +931,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[14])
         }
     };
 
@@ -907,7 +939,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[16])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[16])
         }
     };
 
@@ -915,7 +947,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[22])
         }
     };
 
@@ -923,7 +955,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[23])
         }
     };
 
@@ -931,7 +963,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[24])
         }
     };
 
@@ -939,7 +971,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[25])
         }
     };
 
@@ -947,7 +979,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[27])
         }
     };
 
@@ -955,7 +987,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[28])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[28])
         }
     };
 
@@ -963,7 +995,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[29])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[29])
         }
     };
 
@@ -971,7 +1003,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[30])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[30])
         }
     };
 
@@ -979,7 +1011,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:ecx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:ecx[31])
         }
     };
 
@@ -987,7 +1019,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[1])
         }
     };
 
@@ -995,7 +1027,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[2])
         }
     };
 
@@ -1003,7 +1035,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[3])
         }
     };
 
@@ -1011,7 +1043,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[4])
         }
     };
 
@@ -1019,7 +1051,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[5])
         }
     };
 
@@ -1027,7 +1059,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[8])
         }
     };
 
@@ -1035,7 +1067,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[9])
         }
     };
 
@@ -1043,7 +1075,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[10])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[10])
         }
     };
 
@@ -1051,7 +1083,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[11])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[11])
         }
     };
 
@@ -1059,7 +1091,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[13])
         }
     };
 
@@ -1067,7 +1099,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[14])
         }
     };
 
@@ -1075,7 +1107,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[15])
         }
     };
 
@@ -1083,7 +1115,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[16])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[16])
         }
     };
 
@@ -1091,7 +1123,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[18])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[18])
         }
     };
 
@@ -1099,7 +1131,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[19])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[19])
         }
     };
 
@@ -1107,7 +1139,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[20])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[20])
         }
     };
 
@@ -1115,7 +1147,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[22])
         }
     };
 
@@ -1123,7 +1155,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[23])
         }
     };
 
@@ -1131,7 +1163,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[24])
         }
     };
 
@@ -1139,7 +1171,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[25])
         }
     };
 
@@ -1147,7 +1179,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[26])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[26])
         }
     };
 
@@ -1155,7 +1187,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[27])
         }
     };
 
@@ -1163,7 +1195,7 @@ macro_rules! is_cpuid_feature_detected {
         if $crate::test::cpuid_0_0_eax() < 7 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.7 .0:edx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.7.0:edx[31])
         }
     };
 
@@ -1618,7 +1650,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("syscall") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[11])
@@ -1627,7 +1659,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("nx") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[20])
@@ -1635,7 +1667,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("sem") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[21])
@@ -1643,7 +1675,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("mmxext") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[22])
@@ -1651,7 +1683,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("lm") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[29])
@@ -1659,7 +1691,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("3dnowext") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[30])
@@ -1667,7 +1699,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("3dnow") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:edx[31])
@@ -1675,7 +1707,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("lahf_lm") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[0])
@@ -1683,7 +1715,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("cmp_legacy") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[1])
@@ -1691,7 +1723,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("svm") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[2])
@@ -1699,7 +1731,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("extapic") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[3])
@@ -1707,7 +1739,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("abm") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[4])
@@ -1715,7 +1747,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("sse4a") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[5])
@@ -1723,7 +1755,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("misalignedsse") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[6])
@@ -1731,7 +1763,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("3dnowprefetch") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[7])
@@ -1739,7 +1771,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("osvw") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[8])
@@ -1747,7 +1779,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("ibs") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[9])
@@ -1755,7 +1787,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("xop") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[10])
@@ -1763,7 +1795,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("skinit") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[11])
@@ -1771,7 +1803,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("wdt") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[12])
@@ -1779,7 +1811,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("lwp") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[15])
@@ -1787,7 +1819,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("fma4") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[16])
@@ -1795,7 +1827,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("tce") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[17])
@@ -1803,7 +1835,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("nodeid_msr") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[19])
@@ -1811,7 +1843,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("tbm") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[21])
@@ -1819,7 +1851,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("topoext") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[22])
@@ -1827,7 +1859,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("perfctr_core") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[23])
@@ -1835,7 +1867,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("perfctr_nb") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[24])
@@ -1843,7 +1875,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("dbx") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[26])
@@ -1851,7 +1883,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("perftsc") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[27])
@@ -1859,7 +1891,7 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("monitorx") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x8000_0001 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0001 {
             false
         } else {
             $crate::is_cpuid_feature_detected!(CPUID.0x8000_0001 .0:ecx[29])
@@ -1867,242 +1899,242 @@ macro_rules! is_cpuid_feature_detected {
     };
 
     ("clzero") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[0])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[0])
         }
     };
 
     ("retired_instr") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[1])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[1])
         }
     };
 
     ("xrstor_fp_err") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[2])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[2])
         }
     };
 
     ("invlpgb") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[3])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[3])
         }
     };
 
     ("rdpru") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[4])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[4])
         }
     };
 
     ("xotext") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[5])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[5])
         }
     };
 
     ("mbe") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[6])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[6])
         }
     };
 
     ("mcommit") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[8])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[8])
         }
     };
 
     ("wbnoinvd") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[9])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[9])
         }
     };
 
     ("LBR_EXT_V1") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[10])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[10])
         }
     };
 
     ("IBPB") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[12])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[12])
         }
     };
 
     ("wbinvd_int") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[13])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[13])
         }
     };
 
     ("IBRS") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[14])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[14])
         }
     };
 
     ("STIBP") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[15])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[15])
         }
     };
 
     ("ibrsAlwaysOn") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[16])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[16])
         }
     };
 
     ("StibpAlwaysOn") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[17])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[17])
         }
     };
 
     ("ibrs_preferred") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[18])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[18])
         }
     };
 
     ("ibrs_same_mode_protection") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[19])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[19])
         }
     };
 
     ("no_efer_lmsle") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[20])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[20])
         }
     };
 
     ("invlpgb_nested") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[21])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[21])
         }
     };
 
     ("LBR_TSX") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[22])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[22])
         }
     };
 
     ("ppin") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[23])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[23])
         }
     };
 
     ("ssbd") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[24])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[24])
         }
     };
 
     ("ssbd_legacy") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[25])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[25])
         }
     };
 
     ("ssbd_no") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[26])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[26])
         }
     };
 
     ("cppc") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[27])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[27])
         }
     };
 
     ("psfd") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[28])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[28])
         }
     };
 
     ("btc_no") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[29])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[29])
         }
     };
 
     ("IBPB_RET") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[30])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[30])
         }
     };
 
     ("branch_sampling") => {
-        if $crate::test::cpuid_8000_0000_eax() < 0x80000008 {
+        if $crate::test::cpuid_8000_0000_0_eax() < 0x8000_0008 {
             false
         } else {
-            $crate::is_cpuid_feature_detected!(CPUID.0x80000008 .0:ebx[31])
+            $crate::is_cpuid_feature_detected!(CPUID.0x8000_0008 .0:ebx[31])
         }
     };
 
