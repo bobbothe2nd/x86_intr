@@ -157,7 +157,7 @@ pub unsafe fn mwaitx_no_timeout(hints: u32) {
     }
 }
 
-/// Sleeps until TSC reaches
+/// Sleeps until TSC reaches `timeout`.
 ///
 /// Bit 0 of `control` selects between a lower power (cleared) or faster wakeup (set).
 ///

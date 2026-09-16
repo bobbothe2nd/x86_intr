@@ -16,26 +16,21 @@ macro_rules! polymorphic {
         )*
     } => {
         $(
-            mod $name {
-                #[allow(unused_imports)]
-                use super::*;
-
-                #[allow(non_camel_case_types)]
-                pub(super) trait $name {
-                    fn $name() -> Self;
-                }
-
-                $(
-                    impl $name for $variants {
-                        #[inline(always)]
-                        fn $name() -> Self $body
-                    }
-                )*
+            #[allow(non_camel_case_types)]
+            trait $name {
+                fn $name() -> Self;
             }
+
+            $(
+                impl $name for $variants {
+                    #[inline(always)]
+                    fn $name() -> Self $body
+                }
+            )*
 
             $(#[$attrs])*
             #[allow(private_bounds)]
-            pub fn $name<T: $name::$name>() -> T {
+            pub fn $name<T: $name>() -> T {
                 T::$name()
             }
         )*
@@ -50,6 +45,8 @@ mod cpu;
 mod memory;
 mod protection;
 mod tls;
+mod tsxldtrk;
+mod uintr;
 mod wait;
 
 pub mod arch {
@@ -63,5 +60,7 @@ pub mod arch {
     pub use super::memory::*;
     pub use super::protection::*;
     pub use super::tls::*;
+    pub use super::tsxldtrk::*;
+    pub use super::uintr::*;
     pub use super::wait::*;
 }

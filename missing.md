@@ -164,17 +164,17 @@ Copied from Rust `stdarch/crates/core_arch/missing-x86.md` to track Intel intrin
 
 <details><summary>["TSXLDTRK"]</summary><p>
 
-  * [ ] [`_xresldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xresldtrk)
-  * [ ] [`_xsusldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xsusldtrk)
+  * [x] [`_xresldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xresldtrk)
+  * [x] [`_xsusldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xsusldtrk)
 </p></details>
 
 
 <details><summary>["UINTR"]</summary><p>
 
-  * [ ] [`_clui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_clui)
-  * [ ] [`_senduipi`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_senduipi)
-  * [ ] [`_stui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_stui)
-  * [ ] [`_testui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_testui)
+  * [x] [`_clui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_clui)
+  * [x] [`_senduipi`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_senduipi)
+  * [x] [`_stui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_stui)
+  * [x] [`_testui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_testui)
 </p></details>
 
 

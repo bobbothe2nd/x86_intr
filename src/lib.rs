@@ -2,7 +2,10 @@
 //!
 //! Derived from `core_arch/missing-x86.md`
 
-#![allow(clippy::missing_safety_doc)]
+#![allow(
+    non_snake_case,
+    clippy::missing_safety_doc,
+)]
 #![forbid(missing_docs)]
 #![no_std]
 

@@ -107,7 +107,7 @@ pub fn _rdsspq_i64() -> i64 {
     }
 }
 
-/// Increment the shadow stack pointer by 4 times the value specified in bits [7:0] of a.
+/// Increment the shadow stack pointer by 4 times the value specified in bits \[7:0\] of a.
 ///
 /// Requires `cet_ss`
 ///
@@ -123,7 +123,7 @@ pub unsafe fn _inc_ssp(a: u32) {
     }
 }
 
-/// Increment the shadow stack pointer by 4 times the value specified in bits [7:0] of a.
+/// Increment the shadow stack pointer by 4 times the value specified in bits \[7:0\] of a.
 ///
 /// Requires `cet_ss`
 ///
@@ -139,7 +139,7 @@ pub unsafe fn _incsspd(a: i32) {
     }
 }
 
-/// Increment the shadow stack pointer by 8 times the value specified in bits [7:0] of a.
+/// Increment the shadow stack pointer by 8 times the value specified in bits \[7:0\] of a.
 ///
 /// Requires `cet_ss`
 ///

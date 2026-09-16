@@ -21,8 +21,8 @@ pub fn cpuid_8000_0000_eax() -> u32 {
         CPUID_8000_0000_0_EAX.load(Ordering::Relaxed)
     } else {
         let cpuid = __cpuid_count(8000_0000, 0);
-        CPUID_SET.fetch_or(2, Ordering::Relaxed);
         CPUID_8000_0000_0_EAX.store(cpuid.eax, Ordering::Relaxed);
+        CPUID_SET.fetch_or(2, Ordering::Release);
         cpuid.eax
     }
 }
@@ -34,8 +34,8 @@ pub fn cpuid_7_eax() -> u32 {
         CPUID_7_0_EAX.load(Ordering::Relaxed)
     } else {
         let cpuid = __cpuid_count(7, 0);
-        CPUID_SET.fetch_or(4, Ordering::Relaxed);
         CPUID_7_0_EAX.store(cpuid.eax, Ordering::Relaxed);
+        CPUID_SET.fetch_or(4, Ordering::Release);
         cpuid.eax
     }
 }
@@ -49,7 +49,7 @@ fn set_0_0() -> CpuidResult {
     CPUID_0_0_ECX.store(cpuid.ecx, Ordering::Relaxed);
     CPUID_0_0_EDX.store(cpuid.edx, Ordering::Relaxed);
 
-    CPUID_SET.fetch_or(1, Ordering::Relaxed);
+    CPUID_SET.fetch_or(1, Ordering::Release);
 
     cpuid
 }
