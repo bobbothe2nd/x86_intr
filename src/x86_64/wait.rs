@@ -105,58 +105,7 @@ pub unsafe fn _monitorx(p: *const u8, extensions: u32, hints: u32) {
         );
     }
 }
-
-/// Consumes monitor and awaits either TSC reaches deadline or write to monitored address.
-///
-/// Bit 0 of `hints` selects between a lower power (cleared) or faster wakeup (set).
-///
-/// Bit 1 of `extensions` selects between a timeout and no timeout.
-///
-/// Requires `monitorx`
-///
-/// This intrinsic uses the `bx` register which is reserved by LLVM. Until that gets fixed,
-/// the register is temporarily copied to another register, which has to be initialized to
-/// zero due to another limitation of inline assembly. That is, you cant allocate uninitialized
-/// variables to a register. Then, timeout is written to `ebx`. After the `mwaitx` instruction,
-/// the temporary value gets copied back into `rbx` like nothing ever happened.
-///
-/// This obviously hurts performance. Thats why [`mwaitx_no_timeout`] exists.
-#[inline(always)]
-pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
-    let rbx: u64;
-
-    unsafe {
-        asm!(
-            "mov {tmp:r}, rbx",
-            "mov ebx, {timeout:e}",
-            "mwaitx",
-            "mov rbx, {tmp:r}",
-            tmp = out(reg) rbx,
-            timeout = in(reg) timeout,
-            in("eax") hints,
-            in("ecx") extensions,
-            options(nostack, preserves_flags),
-        );
-    }
-
-    core::hint::black_box(rbx);
-}
-
-/// Equivalent to `_mwaitx` with `extensions=2` but with better performance.
-///
-/// The difference is that this doesn't touch `bx`.
-#[inline(always)]
-pub unsafe fn mwaitx_no_timeout(hints: u32) {
-    unsafe {
-        asm!(
-            "mwaitx",
-            in("eax") hints,
-            in("ecx") 2,
-            options(nostack, preserves_flags),
-        );
-    }
-}
-
+ 
 /// Sleeps until TSC reaches `timeout`.
 ///
 /// Bit 0 of `control` selects between a lower power (cleared) or faster wakeup (set).
@@ -245,21 +194,6 @@ mod tests {
 
         unsafe {
             _monitorx((&raw const value).cast::<u8>(), 0, 0);
-        }
-    }
-
-    #[test]
-    fn mwaitx_if_supported() {
-        if !is_cpuid_feature_detected!("monitorx") {
-            return;
-        }
-
-        let start = unsafe { core::arch::x86_64::_rdtsc() };
-
-        let timeout = start + 10000;
-
-        unsafe {
-            _mwaitx(0, 0, timeout as u32);
         }
     }
 

@@ -1,6 +1,6 @@
 [package]
 name = "x86_intr"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 rust-version = "1.72"
 documentation = "https://docs.rs/x86_intr"
@@ -9,3 +9,6 @@ description = "Additional x86_64 intrinsics"
 license = "MIT"
 keywords = ["intrinsics", "intstructions", "x86", "x86_64"]
 categories = ["algorithms", "hardware-support", "no-std", "no-std::no-alloc"]
+
+[build-dependencies]
+cc = "1"

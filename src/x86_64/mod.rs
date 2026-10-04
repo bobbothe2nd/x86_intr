@@ -35,12 +35,14 @@ macro_rules! polymorphic {
     };
 }
 
+mod amx;
 mod bit;
 mod cache;
 mod cet_ss;
 mod command;
 mod cpu;
 mod memory;
+mod mwaitx;
 mod protection;
 mod tls;
 mod tsxldtrk;
@@ -50,15 +52,19 @@ mod wait;
 pub mod arch {
     //! Re-exported intrinsics.
 
-    pub use super::bit::*;
-    pub use super::cache::*;
-    pub use super::cet_ss::*;
-    pub use super::command::*;
-    pub use super::cpu::*;
-    pub use super::memory::*;
-    pub use super::protection::*;
-    pub use super::tls::*;
-    pub use super::tsxldtrk::*;
-    pub use super::uintr::*;
-    pub use super::wait::*;
+    use super::*;
+
+    pub use amx::*;
+    pub use bit::*;
+    pub use cache::*;
+    pub use cet_ss::*;
+    pub use command::*;
+    pub use cpu::*;
+    pub use mwaitx::*;
+    pub use memory::*;
+    pub use protection::*;
+    pub use tls::*;
+    pub use tsxldtrk::*;
+    pub use uintr::*;
+    pub use wait::*;
 }
