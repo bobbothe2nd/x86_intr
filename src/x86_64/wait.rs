@@ -1,5 +1,7 @@
 use core::arch::asm;
 
+use crate::x86_64::{split_u64, u32x2};
+
 /// Serialize instruction execution, ensuring all modifications to flags, registers, and memory by previous instructions are completed before the next instruction is fetched.
 ///
 /// Requires `serialize`
@@ -39,8 +41,7 @@ pub unsafe fn _umonitor(p: *const u8) {
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_umwait)
 #[inline(always)]
 pub unsafe fn _umwait(control: u32, deadline: u64) {
-    let lo = deadline as u32;
-    let hi = (deadline >> 32) as u32;
+    let u32x2 { lo, hi } = split_u64(deadline);
 
     unsafe {
         asm!(
@@ -115,8 +116,7 @@ pub unsafe fn _monitorx(p: *const u8, extensions: u32, hints: u32) {
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tpause)
 #[inline(always)]
 pub unsafe fn _tpause(control: u32, timeout: u64) {
-    let lo = timeout as u32;
-    let hi = (timeout >> 32) as u32;
+    let u32x2 { lo, hi } = split_u64(timeout);
 
     unsafe {
         asm!(

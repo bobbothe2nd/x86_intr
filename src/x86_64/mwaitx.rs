@@ -15,7 +15,7 @@ use core::arch::asm;
 /// As a result of the C shim, [`mwaitx_asm`] can sometimes outperform this because
 /// (on my system at least) the C intrinsic pushes `rbx` to the stack to save it's value
 /// rather than allocating an additional GPR.
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
     #[cfg(mwaitx_intr)]
     unsafe {
@@ -47,7 +47,7 @@ pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
 /// the temporary value gets copied back into `rbx` like nothing ever happened.
 ///
 /// This obviously hurts performance. Thats why [`mwaitx_no_timeout`] exists.
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn mwaitx_asm(extensions: u32, hints: u32, timeout: u32) {
     let _rbx: u64;
 
@@ -69,7 +69,7 @@ pub unsafe fn mwaitx_asm(extensions: u32, hints: u32, timeout: u32) {
 /// Equivalent to `_mwaitx` with `extensions=2` but with better performance.
 ///
 /// The difference is that this doesn't touch `bx`.
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn mwaitx_no_timeout(hints: u32) {
     unsafe {
         asm!(

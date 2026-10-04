@@ -58,6 +58,8 @@ Intel intrinsics:
 * [`_senduipi`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_senduipi)
 * [`_stui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_stui)
 * [`_testui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_testui)
+* [`_urdmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_urdmsr)
+* [`_uwrmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_uwrmsr)
 * [`_tpause`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_tpause)
 * [`_umonitor`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umonitor)
 * [`_umwait`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umwait)
@@ -67,7 +69,7 @@ AMD intrinsics:
 
 * `_mm_clzero`
 * `_monitorx`
-* `_mwaitx` (and `mwaitx_no_timeout` for optimization)
+* `_mwaitx` (and `mwaitx_no_timeout`/`mwaitx_asm` for optimization)
 
 Other intrinsics:
 

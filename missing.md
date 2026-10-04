@@ -180,8 +180,8 @@ Copied from Rust `stdarch/crates/core_arch/missing-x86.md` to track Intel intrin
 
 <details><summary>["USER_MSR"]</summary><p>
 
-  * [ ] [`_urdmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_urdmsr)
-  * [ ] [`_uwrmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_uwrmsr)
+  * [x] [`_urdmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_urdmsr)
+  * [x] [`_uwrmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_uwrmsr)
 </p></details>
 
 
