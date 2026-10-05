@@ -132,14 +132,14 @@ Copied from Rust `stdarch/crates/core_arch/missing-x86.md` to track Intel intrin
 
 <details><summary>["RAO_INT"]</summary><p>
 
-  * [ ] [`_aadd_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i32)
-  * [ ] [`_aadd_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i64)
-  * [ ] [`_aand_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i32)
-  * [ ] [`_aand_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i64)
-  * [ ] [`_aor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i32)
-  * [ ] [`_aor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i64)
-  * [ ] [`_axor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i32)
-  * [ ] [`_axor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i64)
+  * [x] [`_aadd_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i32)
+  * [x] [`_aadd_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i64)
+  * [x] [`_aand_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i32)
+  * [x] [`_aand_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i64)
+  * [x] [`_aor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i32)
+  * [x] [`_aor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i64)
+  * [x] [`_axor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i32)
+  * [x] [`_axor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i64)
 </p></details>
 
 

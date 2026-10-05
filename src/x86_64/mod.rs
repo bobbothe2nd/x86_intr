@@ -1,4 +1,21 @@
-trait ValidSimdReg {}
+/// Trait used to determine a valid SIMD register type
+pub trait ValidSimdReg: private::Sealed {}
+
+mod private {
+    use crate::{ValidSimdReg, arch::{__m64, __tile1024i}};
+
+    pub trait Sealed {}
+
+    impl<const R: u8> Sealed for __tile1024i<R>
+    where 
+        Self: ValidSimdReg,
+    {}
+
+    impl<const R: u8> Sealed for __m64<R>
+    where 
+        Self: ValidSimdReg,
+    {}
+}
 
 #[repr(C)]
 struct u32x2 {
