@@ -34,7 +34,7 @@ pub unsafe fn _hreset<const HINTS: i32>() {
         asm!(
             "hreset {HINTS}",
             HINTS = const HINTS,
-            options(nostack, preserves_flags)
+            options(nostack, preserves_flags, readonly)
         );
     }
 }

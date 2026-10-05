@@ -17,7 +17,7 @@ use core::arch::asm;
 /// rather than allocating an additional GPR.
 #[inline(always)]
 pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
-    #[cfg(mwaitx_intr)]
+    #[cfg(c_shim)]
     unsafe {
         unsafe extern "C" {
             fn rust_mwaitx(
@@ -30,7 +30,7 @@ pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
         rust_mwaitx(extensions, hints, timeout);
     }
 
-    #[cfg(not(mwaitx_intr))]
+    #[cfg(not(c_shim))]
     unsafe {
         mwaitx_asm(extensions, hints, timeout);
     }

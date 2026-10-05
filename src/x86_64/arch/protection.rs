@@ -11,7 +11,7 @@ pub unsafe fn _wrpkru(val: u32) {
             in("eax") val,
             in("ecx") 0,
             in("edx") 0,
-            options(nostack, preserves_flags)
+            options(nostack, preserves_flags, readonly)
         );
     }
 }
@@ -28,7 +28,7 @@ pub unsafe fn _rdpkru() -> u32 {
             "rdpkru",
             out("eax") val,
             in("ecx") 0,
-            options(nostack, preserves_flags)
+            options(nostack, preserves_flags, readonly)
         );
     }
 

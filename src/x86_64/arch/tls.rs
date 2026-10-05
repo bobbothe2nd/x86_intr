@@ -31,7 +31,7 @@ pub unsafe fn _readfsbase_u64() -> u64 {
 
     unsafe {
         asm!(
-            "rdfsbase {dst:r}",
+            "rdfsbase {dst}",
             dst = out(reg) dst,
             options(nostack, nomem, preserves_flags)
         );
@@ -71,7 +71,7 @@ pub unsafe fn _readgsbase_u64() -> u64 {
 
     unsafe {
         asm!(
-            "rdgsbase {dst:r}",
+            "rdgsbase {dst}",
             dst = out(reg) dst,
             options(nostack, nomem, preserves_flags)
         );
@@ -105,7 +105,7 @@ pub unsafe fn _writefsbase_u32(a: u32) {
 pub unsafe fn _writefsbase_u64(a: u64) {
     unsafe {
         asm!(
-            "wrfsbase {a:e}",
+            "wrfsbase {a}",
             a = in(reg) a,
             options(nostack, nomem, preserves_flags)
         );
@@ -137,7 +137,7 @@ pub unsafe fn _writegsbase_u32(a: u32) {
 pub unsafe fn _writegsbase_u64(a: u64) {
     unsafe {
         asm!(
-            "wrgsbase {a:r}",
+            "wrgsbase {a}",
             a = in(reg) a,
             options(nostack, nomem, preserves_flags)
         );

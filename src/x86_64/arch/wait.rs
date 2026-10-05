@@ -27,7 +27,7 @@ pub unsafe fn _umonitor(p: *const u8) {
         asm!(
             "umonitor {p}",
             p = in(reg) p,
-            options(nostack, preserves_flags),
+            options(nostack, preserves_flags, readonly),
         );
     }
 }
@@ -49,7 +49,7 @@ pub unsafe fn _umwait(control: u32, deadline: u64) {
             control = in(reg) control,
             in("eax") lo,
             in("edx") hi,
-            options(nostack),
+            options(nostack, readonly),
         );
     }
 }
@@ -86,7 +86,7 @@ pub unsafe fn _mm_mwait(extensions: u32, hints: u32) {
             "mwait",
             in("ecx") extensions,
             in("eax") hints,
-            options(nostack, preserves_flags),
+            options(nostack, preserves_flags, readonly),
         );
     }
 }

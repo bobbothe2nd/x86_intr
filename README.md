@@ -72,12 +72,12 @@ Intel intrinsics:
 * [`_umonitor`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umonitor)
 * [`_umwait`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umwait)
 * [`_wbnoinvd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wbnoinvd)
-* [`_mm_add_pi16](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi16)
-* [`_mm_add_pi32](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi32)
-* [`_mm_add_pi8](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi8)
-* [`_mm_adds_pi16](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi16)
-* [`_mm_adds_pi32](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi32)
-* [`_mm_adds_pi8](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi8)
+* [`_mm_add_pi16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi16)
+* [`_mm_add_pi32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi32)
+* [`_mm_add_pi8`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi8)
+* [`_mm_adds_pi16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi16)
+* [`_mm_adds_pi32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi32)
+* [`_mm_adds_pi8`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi8)
 
 AMD intrinsics:
 
