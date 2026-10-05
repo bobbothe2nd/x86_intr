@@ -1,0 +1,12 @@
+[package]
+name = "asm_cartesian"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.71"
+documentation = "https://docs.rs/asm_cartesian"
+repository = "https://github.com/bobbothe2nd/x86_intr"
+description = "Additional x86_64 intrinsics"
+license = "MIT"
+
+[lib]
+proc-macro = true

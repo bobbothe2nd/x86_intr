@@ -4,7 +4,7 @@ use crate::x86_64::ValidSimdReg;
 
 /// Represents an AMX tile
 #[allow(private_bounds)]
-pub struct __tile1024i<const R: usize>(PhantomData<[u8]>)
+pub struct __tile1024i<const R: usize>(PhantomData<[u8; 1024]>)
 where
     Self: ValidSimdReg;
 
