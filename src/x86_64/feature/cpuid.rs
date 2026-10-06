@@ -7,39 +7,39 @@
 /// ```
 #[macro_export]
 macro_rules! is_cpuid_feature_detected {
-    (CPUID.1.0:ecx[$bit:tt]) => {
+    (CPUID.1.0:ecx[$bit:literal]) => {
         ($crate::test::cpuid_1_0_ecx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.1.0:edx[$bit:tt]) => {
+    (CPUID.1.0:edx[$bit:literal]) => {
         ($crate::test::cpuid_1_0_edx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.7.0:eax[$bit:tt]) => {
+    (CPUID.7.0:eax[$bit:literal]) => {
         ($crate::test::cpuid_7_0_eax() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.7.0:ebx[$bit:tt]) => {
+    (CPUID.7.0:ebx[$bit:literal]) => {
         ($crate::test::cpuid_7_0_ebx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.7.0:ecx[$bit:tt]) => {
+    (CPUID.7.0:ecx[$bit:literal]) => {
         ($crate::test::cpuid_7_0_ecx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.7.0:edx[$bit:tt]) => {
+    (CPUID.7.0:edx[$bit:literal]) => {
         ($crate::test::cpuid_7_0_edx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.0x8000_0001 .0:edx[$bit:tt]) => {
+    (CPUID.0x8000_0001 .0:edx[$bit:literal]) => {
         ($crate::test::cpuid_8000_0001_0_edx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.0x8000_0008 .0:ebx[$bit:tt]) => {
+    (CPUID.0x8000_0008 .0:ebx[$bit:literal]) => {
         ($crate::test::cpuid_8000_0008_0_ebx() & (1u32 << $bit)) != 0u32
     };
 
-    (CPUID.$leaf:tt.$subleaf:tt:$reg:ident[$bit:tt]) => {
+    (CPUID.$leaf:literal.$subleaf:literal:$reg:ident[$bit:literal]) => {
         (::core::arch::x86_64::__cpuid_count($leaf, $subleaf).$reg & (1u32 << $bit)) != 0u32
     };
 
@@ -2138,7 +2138,7 @@ macro_rules! is_cpuid_feature_detected {
         }
     };
 
-    ($($features:tt),*) => {
+    ($($features:literal),*) => {
         (true $(
             && $crate::is_cpuid_feature_detected!($features)
         )*)

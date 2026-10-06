@@ -1,10 +1,8 @@
 use core::arch::asm;
 
-use crate::is_cpuid_feature_detected;
-
 /// Mark shadow stack pointed to by `p` as not busy.
 ///
-/// Requires `cet_ss`.
+/// Requires `cet_ss`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_clrssbsy)
 #[inline(always)]
@@ -21,44 +19,38 @@ pub unsafe fn _clrssbsy(p: *mut u8) {
 polymorphic! {
     #[inline(always)]
     #[doc = concat!(
-        "If `cet_ss` CPUID is enabled, read the current shadow stack pointer, and return the result. Otherwise return 0.",
+        "Read the current shadow stack pointer, and return the result.",
+        "\n\n",
+        "Requires `cet_ss`",
         "\n\n",
         "[Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_get_ssp)",
     )]
-    pub fn _get_ssp() -> match {
+    pub unsafe fn _get_ssp() -> match {
         u32 => {
-            if is_cpuid_feature_detected!("cet_ss") {
-                let dst: u32;
+            let dst: u32;
 
-                unsafe {
-                    asm!(
-                        "rdsspd {dst:r}",
-                        dst = out(reg) dst,
-                        options(nostack, preserves_flags)
-                    );
-                }
-
-                dst
-            } else {
-                0
+            unsafe {
+                asm!(
+                    "rdsspd {dst:r}",
+                    dst = out(reg) dst,
+                    options(nostack, preserves_flags)
+                );
             }
+
+            dst
         }
         u64 => {
-            if is_cpuid_feature_detected!("cet_ss") {
-                let dst: u64;
+            let dst: u64;
 
-                unsafe {
-                    asm!(
-                        "rdsspq {dst:r}",
-                        dst = out(reg) dst,
-                        options(nostack, preserves_flags)
-                    );
-                }
-
-                dst
-            } else {
-                0
+            unsafe {
+                asm!(
+                    "rdsspq {dst:r}",
+                    dst = out(reg) dst,
+                    options(nostack, preserves_flags)
+                );
             }
+
+            dst
         }
     }
 }
@@ -67,9 +59,9 @@ polymorphic! {
 ///
 /// Requires `cet_ss`
 ///
-/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_rdsspd)
+/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_rdsspd_i32)
 #[inline(always)]
-pub fn _rdsspd_i32() -> i32 {
+pub unsafe fn _rdsspd_i32() -> i32 {
     let mut dst = 0;
 
     unsafe {
@@ -87,24 +79,20 @@ pub fn _rdsspd_i32() -> i32 {
 ///
 /// Requires `cet_ss`
 ///
-/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_rdsspd)
+/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_rdsspq_i64)
 #[inline(always)]
-pub fn _rdsspq_i64() -> i64 {
-    if is_cpuid_feature_detected!("cet_ss") {
-        let dst;
+pub unsafe fn _rdsspq_i64() -> i64 {
+    let dst;
 
-        unsafe {
-            asm!(
-                "rdsspd {dst:r}",
-                dst = out(reg) dst,
-                options(nostack, preserves_flags)
-            );
-        }
-
-        dst
-    } else {
-        0
+    unsafe {
+        asm!(
+            "rdsspd {dst:r}",
+            dst = out(reg) dst,
+            options(nostack, preserves_flags)
+        );
     }
+
+    dst
 }
 
 /// Increment the shadow stack pointer by 4 times the value specified in bits \[7:0\] of a.

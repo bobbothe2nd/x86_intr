@@ -36,7 +36,7 @@ where
     Self: ValidSimdReg,
 {
     /// Allocates the register without initializing
-    #[inline(never)]
+    #[inline(always)]
     #[must_use = "allocating a register is meaningless without using it"]
     pub const fn allocate() -> Self {
         Self(PhantomData)
@@ -48,7 +48,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_add_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_add_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -71,7 +71,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_add_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_add_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -94,7 +94,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_add_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_add_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -117,7 +117,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_adds_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_adds_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -140,7 +140,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_adds_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_adds_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -163,7 +163,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_adds_pu16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_adds_pu16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -186,7 +186,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_adds_pu8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_adds_pu8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -204,12 +204,12 @@ where
     a
 }
 
-/// Add packed unsigned 8-bit integers in `a` and `b`, and store the results in `dst`.
+/// Compute the bitwise AND of 64 bits (representing integer data) in `a` and `b`, and store the results in `dst`.
 ///
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_and_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_and_si64<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -232,7 +232,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_andnot_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_andnot_si64<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -255,7 +255,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpeq_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpeq_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -278,7 +278,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpeq_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpeq_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -301,7 +301,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpeq_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpeq_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -324,7 +324,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpgt_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpgt_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -347,7 +347,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpgt_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpgt_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -370,7 +370,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cmpgt_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cmpgt_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -393,7 +393,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cvtm64_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cvtm64_si64<const A: u8>(_a: __m64<A>) -> i64
 where 
     __m64<A>: ValidSimdReg,
@@ -417,7 +417,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cvtsi32_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cvtsi32_si64<const DST: u8>(a: i32) -> __m64<DST>
 where 
     __m64<DST>: ValidSimdReg,
@@ -439,7 +439,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_cvtsi64_m64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_cvtsi64_m64<const DST: u8>(a: i64) -> __m64<DST>
 where 
     __m64<DST>: ValidSimdReg,
@@ -461,7 +461,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_empty)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_empty() {
     unsafe {
         asm!(
@@ -476,7 +476,7 @@ pub unsafe fn _m_empty() {
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_empty)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_empty() {
     unsafe {
         asm!(
@@ -491,7 +491,7 @@ pub unsafe fn _mm_empty() {
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_from_int)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_from_int<const DST: u8>(a: i32) -> __m64<DST>
 where 
     __m64<DST>: ValidSimdReg,
@@ -513,7 +513,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_from_int64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_from_int64<const DST: u8>(a: i64) -> __m64<DST>
 where 
     __m64<DST>: ValidSimdReg,
@@ -535,7 +535,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_madd_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_madd_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -558,7 +558,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_mulhi_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_mulhi_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -581,7 +581,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_mullo_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_mullo_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -604,7 +604,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_or_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_or_si64<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -627,7 +627,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_packs_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_packs_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -650,7 +650,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_packs_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_packs_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -673,7 +673,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_packs_pu16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_packs_pu16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -696,7 +696,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_packssdw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_packssdw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -719,7 +719,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_packsswb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_packsswb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -742,7 +742,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_packuswb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_packuswb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -765,7 +765,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -788,7 +788,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -811,7 +811,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddsb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddsb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -834,7 +834,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddsw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddsw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -857,7 +857,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddusb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddusb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -880,7 +880,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddusw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddusw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -903,7 +903,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_paddw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_paddw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -926,7 +926,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pand)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pand<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -949,7 +949,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pandn)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pandn<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -972,7 +972,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpeqb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpeqb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -995,7 +995,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpeqd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpeqd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1018,7 +1018,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpeqw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpeqw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1041,7 +1041,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpgtb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpgtb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1064,7 +1064,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpgtd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpgtd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1087,7 +1087,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pcmpgtw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pcmpgtw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1110,7 +1110,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pmaddwd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pmaddwd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1133,7 +1133,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pmulhw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pmulhw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1156,7 +1156,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pmullw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pmullw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1179,7 +1179,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_por)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_por<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1202,7 +1202,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pslld)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pslld<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1225,7 +1225,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pslldi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pslldi<const IMM8: u8, const A: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1247,7 +1247,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psllq)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psllq<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1270,7 +1270,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psllqi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psllqi<const IMM8: u8, const A: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1292,7 +1292,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psllw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psllw<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1315,7 +1315,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psllwi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psllwi<const IMM8: u8, const A: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1337,7 +1337,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrad)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrad<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1360,7 +1360,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psradi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psradi<const IMM8: u8, const A: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1382,7 +1382,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psraw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psraw<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1405,7 +1405,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrawi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrawi<const IMM8: u8, const A: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1427,7 +1427,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrld)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrld<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1450,7 +1450,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrldi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrldi<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1472,7 +1472,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrlq)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrlq<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1495,7 +1495,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrlqi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrlqi<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1517,7 +1517,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrlw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrlw<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1540,7 +1540,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psrlwi)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psrlwi<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1562,7 +1562,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1585,7 +1585,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1608,7 +1608,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubsb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubsb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1631,7 +1631,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubsw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubsw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1654,7 +1654,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubusb)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubusb<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1677,7 +1677,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubusw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubusw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1700,7 +1700,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_psubw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_psubw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1723,7 +1723,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpckhbw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpckhbw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1746,7 +1746,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpckhdq)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpckhdq<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1769,7 +1769,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpckhwd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpckhwd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1792,7 +1792,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpcklbw)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpcklbw<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1815,7 +1815,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpckldq)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpckldq<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1838,7 +1838,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_punpcklwd)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_punpcklwd<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1861,7 +1861,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_pxor)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_pxor<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1884,7 +1884,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_setzero_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_setzero_si64<const DST: u8>() -> __m64<DST>
 where 
     __m64<DST>: ValidSimdReg,
@@ -1905,7 +1905,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sll_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sll_pi16<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1928,7 +1928,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sll_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sll_pi32<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1951,7 +1951,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sll_pi64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sll_pi64<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1974,7 +1974,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_slli_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_slli_pi16<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -1996,7 +1996,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_slli_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_slli_pi32<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2018,7 +2018,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_slli_pi64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_slli_pi64<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2040,7 +2040,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sra_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sra_pi16<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2063,7 +2063,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sra_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sra_pi32<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2086,7 +2086,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srai_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srai_pi16<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2108,7 +2108,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srai_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srai_pi32<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2130,7 +2130,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srl_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srl_pi16<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2153,7 +2153,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srl_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srl_pi32<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2176,7 +2176,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srl_pi64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srl_pi64<const A: u8, const COUNT_REG: u8>(a: __m64<A>, _count: __m64<COUNT_REG>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2199,7 +2199,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srli_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srli_pi16<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2221,7 +2221,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srli_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srli_pi32<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2243,7 +2243,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_srli_pi64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_srli_pi64<const A: u8, const IMM8: u8>(a: __m64<A>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2265,7 +2265,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sub_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sub_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2288,7 +2288,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sub_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sub_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2311,7 +2311,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_sub_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_sub_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2334,7 +2334,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_subs_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_subs_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2357,7 +2357,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_subs_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_subs_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2380,7 +2380,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_subs_pu16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_subs_pu16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2403,7 +2403,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_subs_pu8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_subs_pu8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2426,7 +2426,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_to_int)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_to_int<const A: u8>(_a: __m64<A>) -> i32
 where 
     __m64<A>: ValidSimdReg,
@@ -2450,7 +2450,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_m_to_int64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _m_to_int64<const A: u8>(_a: __m64<A>) -> i64
 where 
     __m64<A>: ValidSimdReg,
@@ -2474,7 +2474,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpackhi_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpackhi_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2497,7 +2497,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpackhi_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpackhi_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2520,7 +2520,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpackhi_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpackhi_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2543,7 +2543,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpacklo_pi16)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpacklo_pi16<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2566,7 +2566,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpacklo_pi32)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpacklo_pi32<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2589,7 +2589,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_unpacklo_pi8)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_unpacklo_pi8<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,
@@ -2612,7 +2612,7 @@ where
 /// Requires `mmx`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_mm_xor_si64)
-#[inline(never)]
+#[inline(always)]
 pub unsafe fn _mm_xor_si64<const A: u8, const B: u8>(a: __m64<A>, _b: __m64<B>) -> __m64<A>
 where 
     __m64<A>: ValidSimdReg,

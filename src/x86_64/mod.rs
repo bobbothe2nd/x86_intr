@@ -27,7 +27,7 @@ macro_rules! polymorphic {
     {
         $(
             $(#[$attrs:meta])*
-            pub fn $name:ident() -> match {
+            pub unsafe fn $name:ident() -> match {
                 $(
                     $variants:ty => $body:block
                 )*
@@ -49,7 +49,7 @@ macro_rules! polymorphic {
 
             $(#[$attrs])*
             #[allow(private_bounds)]
-            pub fn $name<T: $name>() -> T {
+            pub unsafe fn $name<T: $name>() -> T {
                 T::$name()
             }
         )*
