@@ -8,87 +8,46 @@ All intrinsics are exported in `x86_intr::arch`.
 
 Intel intrinsics:
 
-* [`_clrssbsy`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_clrssbsy)
-* [`_get_ssp`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_get_ssp)
-* [`_get_ssp`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_get_ssp)
-* [`_inc_ssp`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_inc_ssp)
-* [`_incsspd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_incsspd)
-* [`_incsspq`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_incsspq)
-* [`_rdsspd_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_rdsspd_i32)
-* [`_rdsspq_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_rdsspq_i64)
-* [`_rstorssp`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_rstorssp)
-* [`_saveprevssp`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_saveprevssp)
-* [`_setssbsy`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_setssbsy)
-* [`_wrssd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wrssd)
-* [`_wrssq`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wrssq)
-* [`_wrussd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wrussd)
-* [`_wrussq`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wrussq)
-* [`_mm_cldemote`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_cldemote)
-* [`_mm_clwb`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_clwb)
-* [`_enqcmd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_enqcmd)
-* [`_enqcmds`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_enqcmds)
-* [`_readfsbase_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_readfsbase_u32)
-* [`_readfsbase_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_readfsbase_u64)
-* [`_readgsbase_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_readgsbase_u32)
-* [`_readgsbase_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_readgsbase_u64)
-* [`_writefsbase_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_writefsbase_u32)
-* [`_writefsbase_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_writefsbase_u64)
-* [`_writegsbase_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_writegsbase_u32)
-* [`_writegsbase_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_writegsbase_u64)
-* [`_hreset`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_hreset)
-* [`_invpcid`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_invpcid)
-* [`_mm_monitor`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_monitor)
-* [`_mm_mwait`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_mwait)
-* [`_loadbe_i16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_loadbe_i16)
-* [`_loadbe_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_loadbe_i32)
-* [`_loadbe_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_loadbe_i64)
-* [`_storebe_i16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_storebe_i16)
-* [`_storebe_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_storebe_i32)
-* [`_storebe_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_storebe_i64)
-* [`_movdir64b`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_movdir64b)
-* [`_directstoreu_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_directstoreu_u32)
-* [`_directstoreu_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_directstoreu_u64)
-* [`_mm_popcnt_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_popcnt_u32)
-* [`_mm_popcnt_u64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_popcnt_u64)
-* [`_aadd_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i32)
-* [`_aadd_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aadd_i64)
-* [`_aand_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i32)
-* [`_aand_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aand_i64)
-* [`_aor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i32)
-* [`_aor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_aor_i64)
-* [`_axor_i32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i32)
-* [`_axor_i64`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_axor_i64)
-* [`_rdpid_u32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_rdpid_u32)
-* [`_serialize`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_serialize)
-* [`_xresldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xresldtrk)
-* [`_xsusldtrk`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_xsusldtrk)
-* [`_clui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_clui)
-* [`_senduipi`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_senduipi)
-* [`_stui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_stui)
-* [`_testui`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_testui)
-* [`_urdmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_urdmsr)
-* [`_uwrmsr`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_uwrmsr)
-* [`_tpause`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_tpause)
-* [`_umonitor`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umonitor)
-* [`_umwait`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_umwait)
-* [`_wbnoinvd`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_wbnoinvd)
-* [`_mm_add_pi16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi16)
-* [`_mm_add_pi32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi32)
-* [`_mm_add_pi8`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_add_pi8)
-* [`_mm_adds_pi16`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi16)
-* [`_mm_adds_pi32`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi32)
-* [`_mm_adds_pi8`](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_mm_adds_pi8)
+* [CET_SS](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=CET_SS)
+* [CLDEMOTE](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=CLDEMOTE)
+* [CLWB](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=CLWB)
+* [ENQCMD](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=ENQCMD)
+* [FSGSBASE](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=FSGSBASE)
+* [HRESET](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=HRESET)
+* [INVPCID](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=INVPCID)
+* [MONITOR](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=MONITOR)
+* [MOVBE](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=MOVBE)
+* [MOVDIR64B](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=MOVDIR64B)
+* [MOVDIRI](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=MOVDIRI)
+* [POPCNT](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=POPCNT)
+* [RAO_INT](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=RAO_INT)
+* [RDPID](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=RDPID)
+* [SERIALIZE](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=SERIALIZE)
+* [TSXLDTRK](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=TSXLDTRK)
+* [TSXLDTRK](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=TSXLDTRK)
+* [UINTR](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=UINTR)
+* [USER_MSR](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=USER_MSR)
+* [WAITPKG](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=WAITPKG)
+* [WBNOINVD](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=WBNOINVD)
 
 AMD intrinsics:
 
 * `_mm_clzero`
 * `_monitorx`
 * `_mwaitx` (and `mwaitx_no_timeout`/`mwaitx_asm` for optimization)
+* `_rdpru`
 
 Other intrinsics:
 
 * `_rdpkru`
 * `_wrpkru`
+
+Experimental support for:
+
+* [AMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=AMX)
+* [MMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=MMX)
+
+AMX is currently unstable and MMX will likely never be supported by Rust due to being almost completely obsolete.
 
 ## Feature Detection
 
@@ -111,6 +70,8 @@ if x86_intr::is_cpuid_feature_detected("waitpkg", "tsc") {
     }
 }
 ```
+
+Note TSC is guaranteed support by x86_64
 
 ## Safety
 

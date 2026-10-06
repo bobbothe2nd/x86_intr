@@ -38,3 +38,23 @@ pub unsafe fn _uwrmsr(__A: u64, __B: u64) {
         );
     }
 }
+
+/// Reads the contents of a 64-bit MSR specified in `__A` into `dst`.
+///
+/// Requires `rdpru` feature
+#[inline(always)]
+pub unsafe fn _rdpru(__A: u64) -> u64 {
+    let lo: u32;
+    let hi: u32;
+
+    unsafe {
+        asm!(
+            "rdpru",
+            in("ecx") __A as u32,
+            out("eax") lo,
+            out("edx") hi,
+        );
+    }
+
+    concat_u32(lo, hi)
+}

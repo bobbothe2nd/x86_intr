@@ -9,6 +9,3 @@ description = "Additional x86_64 intrinsics"
 license = "MIT"
 keywords = ["intrinsics", "intstructions", "x86", "x86_64"]
 categories = ["algorithms", "hardware-support", "no-std", "no-std::no-alloc"]
-
-[build-dependencies]
-cc = "1"

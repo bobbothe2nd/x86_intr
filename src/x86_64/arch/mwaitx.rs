@@ -8,38 +8,6 @@ use core::arch::asm;
 ///
 /// Requires `monitorx`
 ///
-/// When linking the `c/mwaitx.c` shim fails (common on Windows), this function has to
-/// avoid the builtin register allocator because of `bx` not being supported. This is
-/// automatically handled by `build.rs`.
-///
-/// As a result of the C shim, [`mwaitx_asm`] can sometimes outperform this because
-/// (on my system at least) the C intrinsic pushes `rbx` to the stack to save it's value
-/// rather than allocating an additional GPR.
-#[inline(always)]
-pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
-    #[cfg(c_shim)]
-    unsafe {
-        unsafe extern "C" {
-            fn rust_mwaitx(
-                extensions: u32,
-                hints: u32,
-                timeout: u32,
-            );
-        }
-
-        rust_mwaitx(extensions, hints, timeout);
-    }
-
-    #[cfg(not(c_shim))]
-    unsafe {
-        mwaitx_asm(extensions, hints, timeout);
-    }
-}
-
-/// Consumes monitor and awaits either timeout or write to monitored address.
-///
-/// Same API as [`_mwaitx`].
-///
 /// This intrinsic uses the `bx` register which is reserved by LLVM. Until that gets fixed,
 /// the register is temporarily copied to another register, which has to be initialized to
 /// zero due to another limitation of inline assembly. That is, you cant allocate uninitialized
@@ -48,7 +16,7 @@ pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
 ///
 /// This obviously hurts performance. Thats why [`mwaitx_no_timeout`] exists.
 #[inline(always)]
-pub unsafe fn mwaitx_asm(extensions: u32, hints: u32, timeout: u32) {
+pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
     let _rbx: u64;
 
     unsafe {
