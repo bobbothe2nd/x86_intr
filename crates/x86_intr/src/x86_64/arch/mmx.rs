@@ -1,4 +1,4 @@
-use core::{arch::asm, fmt, marker::PhantomData};
+use core::{arch::asm, fmt};
 
 use intr_gen::intr_asm;
 
@@ -6,7 +6,7 @@ use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying MMX register `mmR`
 #[derive(Clone, Copy)]
-pub struct __m64<const R: u8>(PhantomData<u64>)
+pub struct __m64<const R: u8>
 where 
     Self: ValidSimdReg;
 
@@ -30,18 +30,6 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "mm{R}")
-    }
-}
-
-impl<const R: u8> __m64<R>
-where 
-    Self: ValidSimdReg,
-{
-    /// Allocates the register without initializing
-    #[inline(always)]
-    #[must_use = "allocating a register is meaningless without using it"]
-    pub const fn allocate() -> Self {
-        Self(PhantomData)
     }
 }
 
@@ -433,7 +421,7 @@ where
         );
     }
 
-    __m64::allocate()
+    __m64
 }
 
 /// Copy 64-bit integer `a`to `dst`.
@@ -455,7 +443,7 @@ where
         );
     }
 
-    __m64::allocate()
+    __m64
 }
 
 /// Empty the MMX state, which marks the x87 FPU registers as available for use by x87 instructions. This instruction must be used at the end of all MMX technology procedures.
@@ -512,7 +500,7 @@ where
         );
     }
 
-    __m64::allocate()
+    __m64
 }
 
 /// Copy 64-bit integer `a`to `dst`.
@@ -534,7 +522,7 @@ where
         );
     }
 
-    __m64::allocate()
+    __m64
 }
 
 /// Multiply packed signed 16-bit integers in `a` and `b`, producing intermediate signed 32-bit integers. Horizontally add adjacent pairs of intermediate 32-bit integers, and pack the results in `dst`.
@@ -1904,7 +1892,7 @@ where
         );
     }
 
-    __m64::allocate()
+    __m64
 }
 
 /// Shift packed 16-bit integers in `a` left by `count` while shifting in zeros, and store the results in `dst`.

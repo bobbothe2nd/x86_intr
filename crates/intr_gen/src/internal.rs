@@ -46,38 +46,47 @@ pub(crate) fn gen_unreachable() -> TokenStream {
 }
 
 pub(crate) fn parse_range(stream: &mut IntoIter) -> Result<Range<usize>, TokenStream> {
-    let start = match stream.next() {
-        Some(TokenTree::Literal(lit)) => lit
+    fn parse_end(stream: &mut IntoIter, depth: usize) -> Result<(Span, usize), TokenStream> {
+        if depth > 1 {
+            return Err(error!(Span::call_site(), "expected range, found `==`"));
+        }
+
+        match stream.next() {
+            Some(TokenTree::Literal(lit)) => Ok((lit.span(), lit
+                .to_string()
+                .parse::<usize>()
+                .map_err(|_| error!(lit.span(), "expected integer literal"))? + depth)),
+            Some(TokenTree::Punct(punct)) if punct == '=' => parse_end(stream, depth + 1),
+            Some(tok) => Err(error!(tok.span(), "expected range end")),
+            None => Err(error!(Span::call_site(), "expected range end")),
+        }
+    }
+
+    let (start_span, start) = match stream.next() {
+        Some(TokenTree::Literal(lit)) => (lit.span(), lit
             .to_string()
             .parse()
-            .map_err(|_| error!(lit.span(), "expected integer literal"))?,
+            .map_err(|_| error!(lit.span(), "expected integer literal"))?),
         Some(tok) => return Err(error!(tok.span(), "expected range start")),
         None => return Err(error!(Span::call_site(), "expected range start")),
     };
 
     match stream.next() {
         Some(TokenTree::Punct(p)) if p == '.' && p.spacing() == Spacing::Joint => {}
-        Some(tok) => return Err(error!(tok.span(), "expected `..`")),
+        Some(tok) => return Err(error!(tok.span(), "expected `..`, found `{tok}`")),
         None => return Err(error!(Span::call_site(), "expected `..`")),
     }
 
     match stream.next() {
-        Some(TokenTree::Punct(p)) if p == '.' && p.spacing() == Spacing::Alone => {}
-        Some(tok) => return Err(error!(tok.span(), "expected `..`")),
+        Some(TokenTree::Punct(p)) if p == '.' => {}
+        Some(tok) => return Err(error!(tok.span(), "expected `..`, found `{tok}`")),
         None => return Err(error!(Span::call_site(), "expected `..`")),
     }
 
-    let end = match stream.next() {
-        Some(TokenTree::Literal(lit)) => lit
-            .to_string()
-            .parse()
-            .map_err(|_| error!(lit.span(), "expected integer literal"))?,
-        Some(tok) => return Err(error!(tok.span(), "expected range end")),
-        None => return Err(error!(Span::call_site(), "expected range end")),
-    };
+    let (end_span, end) = parse_end(stream, 0)?;
 
     if start >= end {
-        error!(Span::call_site(), "unexpected reverse or empty range");
+        return Err(error!(end_span.located_at(start_span), "unexpected reverse or empty range"));
     }
 
     Ok(Range { start, end })

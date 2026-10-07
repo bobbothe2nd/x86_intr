@@ -1,4 +1,4 @@
-use core::{arch::asm, fmt, marker::PhantomData};
+use core::{arch::asm, fmt};
 
 use intr_gen::intr_asm;
 
@@ -6,7 +6,7 @@ use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying AMX register `tmmR`
 #[derive(Clone, Copy)]
-pub struct __tile1024i<const R: u8>(PhantomData<[u8; 1024]>)
+pub struct __tile1024i<const R: u8>
 where
     Self: ValidSimdReg;
 
@@ -30,18 +30,6 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "tmm{R}")
-    }
-}
-
-impl<const R: u8> __tile1024i<R>
-where 
-    Self: ValidSimdReg,
-{
-    /// Allocates the register without initializing
-    #[inline(always)]
-    #[must_use = "allocating a register is meaningless without using it"]
-    pub const fn allocate() -> Self {
-        Self(PhantomData)
     }
 }
 

@@ -45,6 +45,7 @@ macro_rules! try_stream {
 
 mod internal;
 mod intr_asm;
+mod register;
 
 use proc_macro::TokenStream;
 
@@ -70,7 +71,42 @@ use proc_macro::TokenStream;
 ///     );
 /// }
 /// ```
+///
+/// Other range syntax is accepted too:
+///
+/// ```rust
+/// const DST: u8 = 3;
+///
+/// let a = 123;
+///
+/// unsafe {
+///     intr_gen::intr_asm!(
+///         // destination register
+///         mm{DST} = DST[0..=7],
+///
+///         // remaining tokens are regular inline assembly syntax
+///         "movd mm{DST}, {src:e}",
+///         src = in(reg) a,
+///         options(nostack, nomem, preserves_flags)
+///     );
+/// }
+/// ```
 #[proc_macro]
 pub fn intr_asm(input: TokenStream) -> TokenStream {
     intr_asm::intr_asm_internal(input)
+}
+
+/// Marks a type as a SIMD register
+///
+/// This implements various traits, methods, and associated functions,
+///
+/// ```rust
+/// #[register(size = 8, class = mm, mask = false, range = 0..8)]
+/// pub struct __m64<const R: u8>;
+///
+/// __m64::
+/// ```
+#[proc_macro_attribute]
+pub fn register(attr: TokenStream, item: TokenStream) -> TokenStream {
+    register::register_internal(attr, item)
 }

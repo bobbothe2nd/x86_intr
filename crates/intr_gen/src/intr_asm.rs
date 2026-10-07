@@ -11,19 +11,19 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
 
     let reg_class = match iter.next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => return error!(tok.span(), "expected register class"),
+        Some(tok) => return error!(tok.span(), "expected register class, found `{tok}`"),
         None => return error!(Span::call_site(), "expected register class"),
     };
 
     let group = match iter.next() {
         Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Brace => group,
-        Some(tok) => return error!(tok.span(), "expected `{{}}` register identifier"),
+        Some(tok) => return error!(tok.span(), "expected `{{}}` register identifier, found `{tok}`"),
         None => return error!(reg_class.span(), "expected `{{...}}` register identifier"),
     };
 
     let asm_const = match group.stream().into_iter().next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => return error!(tok.span(), "expected identifier"),
+        Some(tok) => return error!(tok.span(), "expected identifier, found `{tok}`"),
         None => return error!(group.span(), "expected identifier"),
     };
 
@@ -31,13 +31,13 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
 
     let subject_const = match iter.next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => return error!(tok.span(), "expected identifier"),
+        Some(tok) => return error!(tok.span(), "expected identifier, found `{tok}`"),
         None => return error!(asm_const.span(), "expected identifier"),
     };
 
     let range = match iter.next() {
         Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Bracket => try_stream!(parse_range(&mut group.stream().into_iter())),
-        Some(tok) => return error!(tok.span(), "expected bracketed group"),
+        Some(tok) => return error!(tok.span(), "expected bracketed group, found `{tok}`"),
         None => return error!(Span::call_site(), "expected bracketed group"),
     };
 
