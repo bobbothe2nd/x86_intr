@@ -57,10 +57,7 @@ pub unsafe fn _xbegin() -> u32 {
 #[inline(always)]
 pub unsafe fn _xend() {
     unsafe {
-        asm!(
-            "xend",
-            options(nostack, nomem, preserves_flags)
-        );
+        asm!("xend", options(nostack, nomem, preserves_flags));
     }
 }
 

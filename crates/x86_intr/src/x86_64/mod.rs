@@ -18,9 +18,7 @@ fn concat_u32(lo: u32, hi: u32) -> u64 {
 
 #[inline(always)]
 const fn split_u64(x: u64) -> u32x2 {
-    unsafe {
-        core::mem::transmute::<u64, u32x2>(x)
-    }
+    unsafe { core::mem::transmute::<u64, u32x2>(x) }
 }
 
 macro_rules! polymorphic {

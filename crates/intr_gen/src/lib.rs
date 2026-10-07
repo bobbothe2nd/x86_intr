@@ -1,10 +1,6 @@
-#![no_std]
-
-extern crate alloc;
-
 macro_rules! error {
     ($span:expr, $($args:tt)*) => {{
-        let message = ::alloc::format!($($args)*);
+        let message = ::std::format!($($args)*);
 
         let mut tokens = ::proc_macro::TokenStream::new();
 
@@ -25,11 +21,11 @@ macro_rules! error {
 }
 
 macro_rules! expect_punct {
-    ($expected:literal, $found:expr) => {
+    ($expected:literal, $(= $Err:ident =)? $found:expr) => {
         match $found {
             Some(::proc_macro::TokenTree::Punct(punct)) if punct == $expected && punct.spacing() == ::proc_macro::Spacing::Alone => {}
-            Some(tok) => return error!(tok.span(), "expected {:?}, found {tok}", $expected),
-            None => return error!(::proc_macro::Span::call_site(), "expected {:?}, found end of macro", $expected),
+            Some(tok) => return $($Err)? (error!(tok.span(), "expected {:?}, found {tok}", $expected)),
+            None => return $($Err)? (error!(::proc_macro::Span::call_site(), "expected {:?}, found end of macro", $expected)),
         }
     };
 }
@@ -45,7 +41,6 @@ macro_rules! try_stream {
 
 mod internal;
 mod intr_asm;
-mod register;
 
 use proc_macro::TokenStream;
 
@@ -94,19 +89,4 @@ use proc_macro::TokenStream;
 #[proc_macro]
 pub fn intr_asm(input: TokenStream) -> TokenStream {
     intr_asm::intr_asm_internal(input)
-}
-
-/// Marks a type as a SIMD register
-///
-/// This implements various traits, methods, and associated functions,
-///
-/// ```rust
-/// #[register(size = 8, class = mm, mask = false, range = 0..8)]
-/// pub struct __m64<const R: u8>;
-///
-/// __m64::
-/// ```
-#[proc_macro_attribute]
-pub fn register(attr: TokenStream, item: TokenStream) -> TokenStream {
-    register::register_internal(attr, item)
 }

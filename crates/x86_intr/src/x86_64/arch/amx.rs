@@ -2,7 +2,7 @@ use core::{arch::asm, fmt};
 
 use intr_gen::intr_asm;
 
-use crate::x86_64::{ValidSimdReg, private::Sealed};
+use crate::x86_64::{private::Sealed, ValidSimdReg};
 
 /// A zero-sized compile-time handle identifying AMX register `tmmR`
 #[derive(Clone, Copy)]
@@ -10,10 +10,7 @@ pub struct __tile1024i<const R: u8>
 where
     Self: ValidSimdReg;
 
-impl<const R: u8> Sealed for __tile1024i<R>
-where 
-    Self: ValidSimdReg,
-{}
+impl<const R: u8> Sealed for __tile1024i<R> where Self: ValidSimdReg {}
 
 impl ValidSimdReg for __tile1024i<0> {}
 impl ValidSimdReg for __tile1024i<1> {}
@@ -25,7 +22,7 @@ impl ValidSimdReg for __tile1024i<6> {}
 impl ValidSimdReg for __tile1024i<7> {}
 
 impl<const R: u8> fmt::Debug for __tile1024i<R>
-where 
+where
     Self: ValidSimdReg,
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -39,8 +36,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_cmmimfp16ps)
 #[inline(always)]
-pub unsafe fn __tile_cmmimfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_cmmimfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -61,7 +61,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_cmmimfp16ps)
 #[inline(always)]
 pub unsafe fn _tile_cmmimfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -83,8 +83,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_cmmrlfp16ps)
 #[inline(always)]
-pub unsafe fn __tile_cmmrlfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_cmmrlfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -105,7 +108,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_cmmrlfp16ps)
 #[inline(always)]
 pub unsafe fn _tile_cmmrlfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -127,8 +130,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbf16ps)
 #[inline(always)]
-pub unsafe fn __tile_dpbf16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpbf16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -145,7 +151,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbf16ps)
 #[inline(always)]
 pub unsafe fn _tile_dpbf16ps<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -167,8 +173,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbssd)
 #[inline(always)]
-pub unsafe fn __tile_dpbssd<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpbssd<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -187,7 +196,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbssd)
 #[inline(always)]
 pub unsafe fn _tile_dpbssd<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -209,8 +218,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbsud)
 #[inline(always)]
-pub unsafe fn __tile_dpbsud<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpbsud<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -229,7 +241,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbsud)
 #[inline(always)]
 pub unsafe fn _tile_dpbsud<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -251,8 +263,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbusd)
 #[inline(always)]
-pub unsafe fn __tile_dpbusd<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpbusd<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -271,7 +286,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbusd)
 #[inline(always)]
 pub unsafe fn _tile_dpbusd<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -293,8 +308,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbuud)
 #[inline(always)]
-pub unsafe fn __tile_dpbuud<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpbuud<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -313,7 +331,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbuud)
 #[inline(always)]
 pub unsafe fn _tile_dpbuud<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -335,8 +353,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpfp16ps)
 #[inline(always)]
-pub unsafe fn __tile_dpfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(_dst: *mut __tile1024i<DST>, _src0: __tile1024i<SRC0>, _src1: __tile1024i<SRC1>)
-where 
+pub unsafe fn __tile_dpfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
+    _dst: *mut __tile1024i<DST>,
+    _src0: __tile1024i<SRC0>,
+    _src1: __tile1024i<SRC1>,
+) where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -346,16 +367,14 @@ where
     }
 }
 
-/// Compute dot-product of bytes in tiles with a source/destination accumulator.
-/// Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in `a` with corresponding unsigned 8-bit integers in `b`, producing 4 intermediate 32-bit results.
-/// Sum these 4 results with the corresponding 32-bit integer in `dst`, and store the 32-bit result back to tile `dst`.
+/// Compute dot-product of FP16 (16-bit) floating-point pairs in tiles `a` and `b`, accumulating the intermediate single-precision (32-bit) floating-point elements with elements in `dst`, and store the 32-bit result back to tile `dst`.
 ///
 /// Requires `amx_fp16`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpfp16ps)
 #[inline(always)]
 pub unsafe fn _tile_dpfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
     __tile1024i<SRC0>: ValidSimdReg,
     __tile1024i<SRC1>: ValidSimdReg,
@@ -386,7 +405,7 @@ pub struct __tilecfg {
     pub _reserved0: [u8; 14],
 
     /// bytes per row
-    pub colsb: [u8; 8],
+    pub colsb: [u16; 8],
 
     /// must be zero
     pub _reserved1: [u8; 16],
@@ -423,8 +442,11 @@ pub unsafe fn _tile_loadconfig(mem_addr: *const __tilecfg) {
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_loadd)
 #[inline(always)]
-pub unsafe fn __tile_loadd<const DST: u8>(_dst: *mut __tile1024i<DST>, base: *const u8, stride: usize)
-where 
+pub unsafe fn __tile_loadd<const DST: u8>(
+    _dst: *mut __tile1024i<DST>,
+    base: *const u8,
+    stride: usize,
+) where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
@@ -439,7 +461,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_loadd)
 #[inline(always)]
 pub unsafe fn _tile_loadd<const DST: u8>(base: *const u8, stride: usize)
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
@@ -461,10 +483,7 @@ where
 #[inline(always)]
 pub unsafe fn _tile_release() {
     unsafe {
-        asm!(
-            "tilerelease",
-            options(nostack, nomem, preserves_flags)
-        );
+        asm!("tilerelease", options(nostack, nomem, preserves_flags));
     }
 }
 
@@ -493,7 +512,7 @@ pub unsafe fn _tile_storeconfig(mem_addr: *mut __tilecfg) {
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stored)
 #[inline(always)]
 pub unsafe fn __tile_stored<const SRC: u8>(base: *mut u8, stride: usize, _src: __tile1024i<SRC>)
-where 
+where
     __tile1024i<SRC>: ValidSimdReg,
 {
     unsafe {
@@ -508,7 +527,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stored)
 #[inline(always)]
 pub unsafe fn _tile_stored<const SRC: u8>(base: *mut u8, stride: usize)
-where 
+where
     __tile1024i<SRC>: ValidSimdReg,
 {
     unsafe {
@@ -528,8 +547,11 @@ where
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_stream_loadd)
 #[inline(always)]
-pub unsafe fn __tile_stream_loadd<const DST: u8>(_dst: *mut __tile1024i<DST>, base: *const u8, stride: usize)
-where 
+pub unsafe fn __tile_stream_loadd<const DST: u8>(
+    _dst: *mut __tile1024i<DST>,
+    base: *const u8,
+    stride: usize,
+) where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
@@ -545,7 +567,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stream_loadd)
 #[inline(always)]
 pub unsafe fn _tile_stream_loadd<const DST: u8>(base: *const u8, stride: usize)
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
@@ -566,7 +588,7 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_zero)
 #[inline(always)]
 pub unsafe fn __tile_zero<const DST: u8>(_dst: *mut __tile1024i<DST>)
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
@@ -581,12 +603,12 @@ where
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_zero)
 #[inline(always)]
 pub unsafe fn _tile_zero<const DST: u8>()
-where 
+where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
         intr_asm!(
-            tmm{DST} = DST[0..8],
+            tmm { DST } = DST[0..8],
             "tilezero tmm{DST}",
             options(nostack, nomem, preserves_flags)
         );

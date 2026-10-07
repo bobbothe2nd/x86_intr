@@ -106,7 +106,7 @@ pub unsafe fn _monitorx(p: *const u8, extensions: u32, hints: u32) {
         );
     }
 }
- 
+
 /// Sleeps until TSC reaches `timeout`.
 ///
 /// Bit 0 of `control` selects between a lower power (cleared) or faster wakeup (set).

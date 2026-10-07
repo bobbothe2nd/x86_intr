@@ -2,7 +2,7 @@
 name = "intr_gen"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.79"
+rust-version = "1.96"
 documentation = "https://docs.rs/intr_gen"
 repository = "https://github.com/bobbothe2nd/x86_intr"
 description = "Additional x86_64 intrinsics"

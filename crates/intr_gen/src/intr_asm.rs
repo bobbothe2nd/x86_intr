@@ -1,8 +1,6 @@
 use core::range::Range;
 
-use proc_macro::{
-    Delimiter, Group, Ident, Literal, Punct, Spacing, Span, TokenStream, TokenTree,
-};
+use proc_macro::{Delimiter, Group, Ident, Literal, Punct, Spacing, Span, TokenStream, TokenTree};
 
 use crate::internal::{gen_core_asm, gen_unreachable, parse_range};
 
@@ -17,7 +15,12 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
 
     let group = match iter.next() {
         Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Brace => group,
-        Some(tok) => return error!(tok.span(), "expected `{{}}` register identifier, found `{tok}`"),
+        Some(tok) => {
+            return error!(
+                tok.span(),
+                "expected `{{}}` register identifier, found `{tok}`"
+            )
+        }
         None => return error!(reg_class.span(), "expected `{{...}}` register identifier"),
     };
 
@@ -36,7 +39,9 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
     };
 
     let range = match iter.next() {
-        Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Bracket => try_stream!(parse_range(&mut group.stream().into_iter())),
+        Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Bracket => {
+            try_stream!(parse_range(&mut group.stream().into_iter()))
+        }
         Some(tok) => return error!(tok.span(), "expected bracketed group, found `{tok}`"),
         None => return error!(Span::call_site(), "expected bracketed group"),
     };
@@ -88,13 +93,11 @@ fn gen_intr_asm(
         let mut asm_tokens = asm.clone();
 
         if start_comma {
-            asm_tokens.extend([
-                TokenTree::Punct({
-                    let mut p = Punct::new(',', Spacing::Alone);
-                    p.set_span(asm_const.span());
-                    p
-                }),
-            ]);
+            asm_tokens.extend([TokenTree::Punct({
+                let mut p = Punct::new(',', Spacing::Alone);
+                p.set_span(asm_const.span());
+                p
+            })]);
         }
 
         asm_tokens.extend([
@@ -113,20 +116,15 @@ fn gen_intr_asm(
             }),
             TokenTree::Ident(Ident::new("out", asm_const.span())),
             TokenTree::Group({
-                let mut group = Group::new(
-                    Delimiter::Parenthesis,
-                    {
-                        let mut stream = TokenStream::new();
+                let mut group = Group::new(Delimiter::Parenthesis, {
+                    let mut stream = TokenStream::new();
 
-                        let mut string = Literal::string(
-                            &alloc::format!("{}{}", reg_class, register)
-                        );
-                        string.set_span(reg_class.span());
+                    let mut string = Literal::string(&format!("{}{}", reg_class, register));
+                    string.set_span(reg_class.span());
 
-                        stream.extend([TokenTree::Literal(string)]);
-                        stream
-                    },
-                );
+                    stream.extend([TokenTree::Literal(string)]);
+                    stream
+                });
                 group.set_span(reg_class.span());
                 group
             }),

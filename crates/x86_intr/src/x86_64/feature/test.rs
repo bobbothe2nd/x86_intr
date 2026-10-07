@@ -4,7 +4,7 @@
 
 use core::{
     arch::x86_64::{__cpuid_count, CpuidResult},
-    sync::atomic::{AtomicU8, AtomicU32, Ordering},
+    sync::atomic::{AtomicU32, AtomicU8, Ordering},
 };
 
 static CPUID_SET: AtomicU8 = AtomicU8::new(0);

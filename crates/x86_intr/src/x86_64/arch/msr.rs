@@ -27,7 +27,7 @@ pub unsafe fn _urdmsr(__A: u64) -> u64 {
 /// Requires `user_msr` feature
 #[inline(always)]
 pub unsafe fn _uwrmsr(__A: u64, __B: u64) {
-    let u32x2 { lo, hi} = split_u64(__B);
+    let u32x2 { lo, hi } = split_u64(__B);
 
     unsafe {
         asm!(
