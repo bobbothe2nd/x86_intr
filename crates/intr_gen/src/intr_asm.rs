@@ -11,64 +11,34 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
 
     let reg_class = match iter.next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => {
-            error!(tok.span(), "expected register class");
-            return TokenStream::new();
-        }
-        None => {
-            error!(Span::call_site(), "expected register class");
-            return TokenStream::new();
-        }
+        Some(tok) => return error!(tok.span(), "expected register class"),
+        None => return error!(Span::call_site(), "expected register class"),
     };
 
     let group = match iter.next() {
         Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Brace => group,
-        Some(tok) => {
-            error!(tok.span(), "expected `{{}}` register identifier");
-            return TokenStream::new();
-        }
-        None => {
-            error!(reg_class.span(), "expected `{{...}}` register identifier");
-            return TokenStream::new();
-        }
+        Some(tok) => return error!(tok.span(), "expected `{{}}` register identifier"),
+        None => return error!(reg_class.span(), "expected `{{...}}` register identifier"),
     };
 
     let asm_const = match group.stream().into_iter().next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => {
-            error!(tok.span(), "expected identifier");
-            return TokenStream::new();
-        }
-        None => {
-            error!(group.span(), "expected identifier");
-            return TokenStream::new();
-        }
+        Some(tok) => return error!(tok.span(), "expected identifier"),
+        None => return error!(group.span(), "expected identifier"),
     };
 
     expect_punct!('=', iter.next());
 
     let subject_const = match iter.next() {
         Some(TokenTree::Ident(ident)) => ident,
-        Some(tok) => {
-            error!(tok.span(), "expected identifier");
-            return TokenStream::new();
-        }
-        None => {
-            error!(asm_const.span(), "expected identifier");
-            return TokenStream::new();
-        }
+        Some(tok) => return error!(tok.span(), "expected identifier"),
+        None => return error!(asm_const.span(), "expected identifier"),
     };
 
     let range = match iter.next() {
         Some(TokenTree::Group(group)) if group.delimiter() == Delimiter::Bracket => try_stream!(parse_range(&mut group.stream().into_iter())),
-        Some(tok) => {
-            error!(tok.span(), "expected bracketed group");
-            return TokenStream::new();
-        }
-        None => {
-            error!(Span::call_site(), "expected bracketed group");
-            return TokenStream::new();
-        }
+        Some(tok) => return error!(tok.span(), "expected bracketed group"),
+        None => return error!(Span::call_site(), "expected bracketed group"),
     };
 
     expect_punct!(',', iter.next());

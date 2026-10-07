@@ -1,5 +1,7 @@
 use core::{arch::asm, fmt, marker::PhantomData};
 
+use intr_gen::intr_asm;
+
 use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying AMX register `tmmR`
@@ -77,9 +79,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tcmmimfp16ps tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -121,9 +123,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tcmmrlfp16ps tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -161,9 +163,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpbf16ps tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -203,9 +205,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpbssd tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -245,9 +247,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpbsud tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -287,9 +289,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpbusd tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -329,9 +331,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpbuud tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -371,9 +373,9 @@ where
     __tile1024i<SRC1>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tdpfp16ps tmm{DST}, tmm{SRC0}, tmm{SRC1}",
-            DST = const DST,
             SRC0 = const SRC0,
             SRC1 = const SRC1,
             options(nostack, nomem, preserves_flags)
@@ -383,7 +385,7 @@ where
 
 /// Implementation of tile config structure used by [`_tile_loadconfig`]
 #[repr(C, align(64))]
-pub struct TileCfg {
+pub struct __tilecfg {
     /// selects the supported configuration of the tiles that will be used
     ///
     /// only valid non-INIT value is 1
@@ -395,56 +397,14 @@ pub struct TileCfg {
     /// must be zero
     pub _reserved0: [u8; 14],
 
-    /// tile 0 bytes/row
-    pub tile0_colsb: u16,
-
-    /// tile 1 bytes/row
-    pub tile1_colsb: u16,
-
-    /// tile 2 bytes/row
-    pub tile2_colsb: u16,
-
-    /// tile 3 bytes/row
-    pub tile3_colsb: u16,
-
-    /// tile 4 bytes/row
-    pub tile4_colsb: u16,
-
-    /// tile 5 bytes/row
-    pub tile5_colsb: u16,
-
-    /// tile 6 bytes/row
-    pub tile6_colsb: u16,
-
-    /// tile 7 bytes/row
-    pub tile7_colsb: u16,
+    /// bytes per row
+    pub colsb: [u8; 8],
 
     /// must be zero
     pub _reserved1: [u8; 16],
 
-    /// tile 0 rows
-    pub tile0_rows: u8,
-
-    /// tile 1 rows
-    pub tile1_rows: u8,
-
-    /// tile 2 rows
-    pub tile2_rows: u8,
-
-    /// tile 3 rows
-    pub tile3_rows: u8,
-
-    /// tile 4 rows
-    pub tile4_rows: u8,
-
-    /// tile 5 rows
-    pub tile5_rows: u8,
-
-    /// tile 6 rows
-    pub tile6_rows: u8,
-
-    /// tile 7 rows
-    pub tile7_rows: u8,
+    /// tile rows
+    pub rows: [u8; 8],
 
     /// must be zero
     pub _reserved2: [u8; 8],
@@ -459,7 +419,7 @@ pub struct TileCfg {
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_loadconfig)
 #[inline(always)]
-pub unsafe fn _tile_loadconfig(mem_addr: *const TileCfg) {
+pub unsafe fn _tile_loadconfig(mem_addr: *const __tilecfg) {
     unsafe {
         asm!(
             "ldtilecfg [{addr}]",
@@ -495,9 +455,9 @@ where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tileloadd tmm{DST}, [{addr} + {stride}]",
-            DST = const DST,
             addr = in(reg) base,
             stride = in(reg) stride,
             options(nostack, preserves_flags)
@@ -528,7 +488,7 @@ pub unsafe fn _tile_release() {
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_storeconfig)
 #[inline(always)]
-pub unsafe fn _tile_storeconfig(mem_addr: *mut TileCfg) {
+pub unsafe fn _tile_storeconfig(mem_addr: *mut __tilecfg) {
     unsafe {
         asm!(
             "sttilecfg [{addr}]",
@@ -549,13 +509,7 @@ where
     __tile1024i<SRC>: ValidSimdReg,
 {
     unsafe {
-        asm!(
-            "tilestored [{base} + {stride}], tmm{SRC}",
-            SRC = const SRC,
-            base = in(reg) base,
-            stride = in(reg) stride,
-            options(nostack, preserves_flags)
-        );
+        _tile_stored(base, stride);
     }
 }
 
@@ -607,9 +561,9 @@ where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tileloaddt1 tmm{DST}, [{addr} + {stride}]",
-            DST = const DST,
             addr = in(reg) base,
             stride = in(reg) stride,
             options(nostack, preserves_flags)
@@ -643,9 +597,9 @@ where
     __tile1024i<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            tmm{DST} = DST[0..8],
             "tilezero tmm{DST}",
-            DST = const DST,
             options(nostack, nomem, preserves_flags)
         );
     }

@@ -1,5 +1,7 @@
 use core::{arch::asm, fmt, marker::PhantomData};
 
+use intr_gen::intr_asm;
+
 use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying MMX register `mmR`
@@ -55,9 +57,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -78,9 +80,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -101,9 +103,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -124,9 +126,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddsw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -147,9 +149,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddsb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -170,9 +172,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddusw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -193,9 +195,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddusb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -216,9 +218,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pand mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -239,9 +241,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pandn mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -262,9 +264,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -285,9 +287,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -308,9 +310,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -331,9 +333,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -354,9 +356,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -377,9 +379,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -401,10 +403,10 @@ where
     let dst;
 
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "movq {dst}, mm{A}",
             dst = out(reg) dst,
-            A = const A,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -423,10 +425,10 @@ where
     __m64<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{DST} = DST[0..8],
             "movd mm{DST}, {src:e}",
             src = in(reg) a,
-            DST = const DST,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -445,10 +447,10 @@ where
     __m64<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{DST} = DST[0..8],
             "movq mm{DST}, {src}",
             src = in(reg) a,
-            DST = const DST,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -466,8 +468,14 @@ pub unsafe fn _m_empty() {
     unsafe {
         asm!(
             "emms",
-            out("mm1") _,
+            lateout("mm0") _,
+            lateout("mm1") _,
             lateout("mm2") _,
+            lateout("mm3") _,
+            lateout("mm4") _,
+            lateout("mm5") _,
+            lateout("mm6") _,
+            lateout("mm7") _,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -496,12 +504,11 @@ where
     __m64<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{DST} = DST[0..8],
             "movd mm{DST}, {src:e}",
             src = in(reg) a,
             options(nostack, nomem, preserves_flags),
-            DST = const DST,
-            out("mm0") _,
         );
     }
 
@@ -519,10 +526,10 @@ where
     __m64<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{DST} = DST[0..8],
             "movq mm{DST}, {src}",
             src = in(reg) a,
-            DST = const DST,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -542,9 +549,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmaddwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -565,9 +572,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmulhw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -588,9 +595,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmullw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -611,9 +618,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "por mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -634,9 +641,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packsswb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -657,9 +664,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packssdw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -680,9 +687,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packuswb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -703,9 +710,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packssdw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -726,9 +733,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packsswb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -749,9 +756,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "packuswb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -772,9 +779,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -795,9 +802,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -818,9 +825,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddsb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -841,9 +848,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddsw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -864,9 +871,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddusb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -887,9 +894,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddusw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -910,9 +917,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "paddw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -933,9 +940,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pand mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -956,9 +963,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pandn mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -979,9 +986,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1002,9 +1009,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1025,9 +1032,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpeqw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1048,9 +1055,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1071,9 +1078,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1094,9 +1101,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pcmpgtw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1117,9 +1124,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmaddwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1140,9 +1147,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmulhw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1163,9 +1170,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pmullw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1186,9 +1193,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "por mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1209,9 +1216,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pslld mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1231,9 +1238,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pslld mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1254,9 +1261,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllq mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1276,9 +1283,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllq mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1299,9 +1306,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1321,9 +1328,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1344,9 +1351,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrad mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1366,9 +1373,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrad mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1389,9 +1396,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psraw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1411,9 +1418,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psraw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1434,9 +1441,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrld mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1456,9 +1463,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrld mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1479,9 +1486,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlq mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1501,9 +1508,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlq mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1524,9 +1531,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1546,9 +1553,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -1569,9 +1576,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1592,9 +1599,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1615,9 +1622,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubsb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1638,9 +1645,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubsw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1661,9 +1668,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubusb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1684,9 +1691,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubusw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1707,9 +1714,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1730,9 +1737,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhbw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1753,9 +1760,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhdq mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1776,9 +1783,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1799,9 +1806,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpcklbw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1822,9 +1829,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckldq mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1845,9 +1852,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpcklwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1868,9 +1875,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pxor mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -1890,9 +1897,9 @@ where
     __m64<DST>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{DST} = DST[0..8],
             "pxor mm{DST}, mm{DST}",
-            DST = const DST,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -1912,9 +1919,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1935,9 +1942,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pslld mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1958,9 +1965,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllq mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -1980,9 +1987,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2002,9 +2009,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pslld mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2024,9 +2031,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psllq mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2047,9 +2054,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psraw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -2070,9 +2077,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrad mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -2092,9 +2099,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psraw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2114,9 +2121,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrad mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2137,9 +2144,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlw mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -2160,9 +2167,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrld mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -2183,9 +2190,9 @@ where
     __m64<COUNT_REG>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlq mm{A}, mm{COUNT_REG}",
-            A = const A,
             COUNT_REG = const COUNT_REG,
             options(nostack, nomem, preserves_flags),
         );
@@ -2205,9 +2212,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlw mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2227,9 +2234,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrld mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2249,9 +2256,9 @@ where
     __m64<A>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psrlq mm{A}, {IMM8}",
-            A = const A,
             IMM8 = const IMM8,
             options(nostack, nomem, preserves_flags),
         );
@@ -2272,9 +2279,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2295,9 +2302,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2318,9 +2325,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2341,9 +2348,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubsw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2364,9 +2371,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubsb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2387,9 +2394,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubusw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2410,9 +2417,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "psubusb mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2434,10 +2441,10 @@ where
     let dst;
 
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "movd {dst:e}, mm{A}",
             dst = out(reg) dst,
-            A = const A,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -2458,10 +2465,10 @@ where
     let dst;
 
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "movq {dst:e}, mm{A}",
             dst = out(reg) dst,
-            A = const A,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -2481,9 +2488,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2504,9 +2511,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhdq mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2527,9 +2534,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckhbw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2550,9 +2557,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpcklwd mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2573,9 +2580,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpckldq mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2596,9 +2603,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "punpcklbw mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
@@ -2619,9 +2626,9 @@ where
     __m64<B>: ValidSimdReg,
 {
     unsafe {
-        asm!(
+        intr_asm!(
+            mm{A} = A[0..8],
             "pxor mm{A}, mm{B}",
-            A = const A,
             B = const B,
             options(nostack, nomem, preserves_flags),
         );
