@@ -1,0 +1,14 @@
+[package]
+name = "intr_gen"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.72"
+documentation = "https://docs.rs/intr_gen"
+repository = "https://github.com/bobbothe2nd/x86_intr"
+description = "Additional x86_64 intrinsics"
+license = "MIT"
+keywords = ["intrinsics", "intstructions"]
+categories = ["hardware-support", "no-std", "no-std::no-alloc"]
+
+[lib]
+proc-macro = true

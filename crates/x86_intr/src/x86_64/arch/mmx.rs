@@ -466,6 +466,8 @@ pub unsafe fn _m_empty() {
     unsafe {
         asm!(
             "emms",
+            out("mm1") _,
+            lateout("mm2") _,
             options(nostack, nomem, preserves_flags),
         );
     }
@@ -479,10 +481,7 @@ pub unsafe fn _m_empty() {
 #[inline(always)]
 pub unsafe fn _mm_empty() {
     unsafe {
-        asm!(
-            "emms",
-            options(nostack, nomem, preserves_flags),
-        );
+        _m_empty();
     }
 }
 
@@ -500,8 +499,9 @@ where
         asm!(
             "movd mm{DST}, {src:e}",
             src = in(reg) a,
-            DST = const DST,
             options(nostack, nomem, preserves_flags),
+            DST = const DST,
+            out("mm0") _,
         );
     }
 
