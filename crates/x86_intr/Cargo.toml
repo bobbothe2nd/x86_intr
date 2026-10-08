@@ -1,6 +1,6 @@
 [package]
 name = "x86_intr"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 rust-version = "1.96"
 documentation = "https://docs.rs/x86_intr"

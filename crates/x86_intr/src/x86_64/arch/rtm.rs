@@ -81,3 +81,24 @@ pub unsafe fn _xtest() -> u8 {
 
     dst
 }
+
+/// Query the transactional execution status, return 0 if inside a transactionally executing RTM or HLE region, and return 1 otherwise.
+///
+/// Requires `rtm`
+///
+/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_xtest)
+#[inline(always)]
+pub unsafe fn xtestn() -> u8 {
+    let dst;
+
+    unsafe {
+        asm!(
+            "xtest",
+            "setz {dst}",
+            dst = out(reg_byte) dst,
+            options(nostack, nomem)
+        );
+    }
+
+    dst
+}
