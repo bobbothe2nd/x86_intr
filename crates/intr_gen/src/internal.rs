@@ -58,7 +58,7 @@ pub(crate) fn parse_range(stream: &mut IntoIter) -> Result<Range<usize>, TokenSt
                     + depth,
             )),
             Some(TokenTree::Punct(punct)) if punct == '=' => parse_end(stream, depth + 1),
-            Some(tok) => Err(error!(tok.span(), "expected range end")),
+            Some(tok) => Err(error!(tok.span(), "expected range end, found `{tok}`")),
             None => Err(error!(Span::call_site(), "expected range end")),
         }
     }
@@ -70,7 +70,7 @@ pub(crate) fn parse_range(stream: &mut IntoIter) -> Result<Range<usize>, TokenSt
                 .parse()
                 .map_err(|_| error!(lit.span(), "expected integer literal"))?,
         ),
-        Some(tok) => return Err(error!(tok.span(), "expected range start")),
+        Some(tok) => return Err(error!(tok.span(), "expected range start, found `{tok}`")),
         None => return Err(error!(Span::call_site(), "expected range start")),
     };
 

@@ -50,41 +50,77 @@ use proc_macro::TokenStream;
 /// only the correct output register by constant expression rather than a string literal.
 ///
 /// ```rust
-/// const DST: u8 = 3;
+/// # const DST: u8 = 3;
+/// # let a = 123;
+/// # unsafe {
+/// intr_gen::intr_asm!(
+///     // destination register
+///     mm{DST} = DST[0..8],
 ///
-/// let a = 123;
-///
-/// unsafe {
-///     intr_gen::intr_asm!(
-///         // destination register
-///         mm{DST} = DST[0..8],
-///
-///         // remaining tokens are regular inline assembly syntax
-///         "movd mm{DST}, {src:e}",
-///         src = in(reg) a,
-///         options(nostack, nomem, preserves_flags)
-///     );
-/// }
+///     // remaining tokens are regular inline assembly syntax
+///     "movd mm{DST}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+/// # }
 /// ```
 ///
 /// Other range syntax is accepted too:
 ///
 /// ```rust
-/// const DST: u8 = 3;
+/// # const DST: u8 = 3;
+/// # let a = 123;
+/// # unsafe {
+/// intr_gen::intr_asm!(
+///     mm{DST} = DST[0..=7],
+///     "movd mm{DST}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+/// # }
+/// ```
 ///
-/// let a = 123;
+/// You can use other names in ASM too:
 ///
-/// unsafe {
-///     intr_gen::intr_asm!(
-///         // destination register
-///         mm{DST} = DST[0..=7],
+/// ```rust
+/// const DST_RUST: u8 = 3;
+/// # let a = 123;
+/// # unsafe {
+/// intr_gen::intr_asm!(
+///     mm{DST_ASM} = DST_RUST[0..=7],
+///     "movd mm{DST_ASM}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+/// # }
+/// ```
 ///
-///         // remaining tokens are regular inline assembly syntax
-///         "movd mm{DST}, {src:e}",
-///         src = in(reg) a,
-///         options(nostack, nomem, preserves_flags)
-///     );
-/// }
+/// Any unbounded range fails to compile:
+///
+/// ```compile_fail
+/// # const DST: u8 = 3;
+/// # let a = 123;
+/// # unsafe {
+/// intr_gen::intr_asm!(
+///     mm{DST} = DST[0..],
+///     "movd mm{DST}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+///
+/// intr_gen::intr_asm!(
+///     mm{DST} = DST[..8],
+///     "movd mm{DST}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+/// intr_gen::intr_asm!(
+///     mm{DST} = DST[..],
+///     "movd mm{DST}, {src:e}",
+///     src = in(reg) a,
+///     options(nostack, nomem, preserves_flags)
+/// );
+/// # }
 /// ```
 #[proc_macro]
 pub fn intr_asm(input: TokenStream) -> TokenStream {

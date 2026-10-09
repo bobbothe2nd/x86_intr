@@ -5,9 +5,9 @@ edition = "2021"
 rust-version = "1.96"
 documentation = "https://docs.rs/intr_gen"
 repository = "https://github.com/bobbothe2nd/x86_intr"
-description = "Additional x86_64 intrinsics"
+description = "Hardware/compiler intrinsic generator"
 license = "MIT"
-keywords = ["intrinsics", "intstructions"]
+keywords = ["intrinsics", "intstructions", "generate"]
 categories = ["hardware-support", "no-std", "no-std::no-alloc"]
 
 [lib]
