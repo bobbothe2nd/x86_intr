@@ -11,7 +11,7 @@ pub unsafe fn _wrpkru(val: u32) {
             in("eax") val,
             in("ecx") 0,
             in("edx") 0,
-            options(nostack, preserves_flags, readonly)
+            options(nostack, preserves_flags)
         );
     }
 }
@@ -20,7 +20,18 @@ pub unsafe fn _wrpkru(val: u32) {
 ///
 /// Requires `pku` and `ospke`.
 #[inline(always)]
+#[deprecated]
 pub unsafe fn _rdpkru() -> u32 {
+    unsafe {
+        _rdpkru_u32()
+    }
+}
+
+/// Reads the value of PKRU.
+///
+/// Requires `pku` and `ospke`.
+#[inline(always)]
+pub unsafe fn _rdpkru_u32() -> u32 {
     let val;
 
     unsafe {

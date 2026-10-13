@@ -2,6 +2,8 @@
 
 Additional x86/x86-64 intrinsics for instructions and ISA extensions not yet available through stable `core::arch`. These intrinsics will probably be deprecated as new intrinsics are stabilized/added in `core::arch`. More intrinsics will be added soon.
 
+Currently, there are 200+ intrinsics implemented.
+
 ## Intrinsics Included
 
 All intrinsics are exported in `x86_intr::arch`.
@@ -29,25 +31,21 @@ Intel intrinsics:
 * [USER_MSR](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=USER_MSR)
 * [WAITPKG](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=WAITPKG)
 * [WBNOINVD](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=WBNOINVD)
+* [AMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=AMX)
+* [MMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=MMX)
 
 AMD intrinsics:
 
 * `_mm_clzero`
 * `_monitorx`
-* `_mwaitx` (and `mwaitx_no_timeout`/`mwaitx_asm` for optimization)
+* `_mwaitx` (and `mwaitx_no_timeout` for optimization)
 * `_rdpru`
 
 Other intrinsics:
 
 * `_rdpkru`
 * `_wrpkru`
-
-Experimental support for:
-
-* [AMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=AMX)
-* [MMX](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#techs=MMX)
-
-AMX is currently unstable and MMX will likely never be supported by Rust due to being almost completely obsolete.
+* [ACE](https://x86ecosystem.org/wp-content/uploads/2026/06/ACE_v1_Specification_public_1_15.pdf) (including AMX)
 
 ## Feature Detection
 

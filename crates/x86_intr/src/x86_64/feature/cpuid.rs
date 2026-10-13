@@ -2138,9 +2138,9 @@ macro_rules! is_cpuid_feature_detected {
         }
     };
 
-    ($($features:literal),*) => {
-        (true $(
+    ($feature:literal, $($features:literal),*) => {
+        ($crate::is_cpuid_feature_detected!($feature) $(
             && $crate::is_cpuid_feature_detected!($features)
         )*)
-    }
+    };
 }
