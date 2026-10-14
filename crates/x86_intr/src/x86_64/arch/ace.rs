@@ -1,8 +1,11 @@
 use core::arch::{
-    asm, x86_64::{__m128i, __m256i, __m512, __m512h, __m512i},
+    asm,
+    x86_64::{__m128i, __m256i, __m512, __m512h, __m512i},
 };
 
-use crate::{ValidSimdReg, arch::__tile1024i};
+use intr_gen::intr_asm;
+
+use crate::{arch::__tile1024i, ValidSimdReg};
 
 /// Convert one packed FP16 vector to BF8 E5M2, non-saturating.
 ///
@@ -552,9 +555,7 @@ pub unsafe fn _mm512_cvtbf4_hf8(a: __m256i) -> __m512i {
 /// Requires `avx10.2`
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtf8_bf6s(a: __m512i) -> __m512i {
-    unsafe {
-        _mm512_cvtbf8_bf6s(a)
-    }
+    unsafe { _mm512_cvtbf8_bf6s(a) }
 }
 
 /// Convert packed BF8 E5M2 to packed BF6 E3M2, saturating.
@@ -580,9 +581,7 @@ pub unsafe fn _mm512_cvtbf8_bf6s(a: __m512i) -> __m512i {
 /// Requires `avx10.2`
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtfhf8(a: __m512i) -> __m512i {
-    unsafe {
-        _mm512_cvtbfhf8(a)
-    }
+    unsafe { _mm512_cvtbfhf8(a) }
 }
 
 /// Convert packed BF8 E5M2 to packed HF6 E2M3, saturating.
@@ -653,37 +652,70 @@ pub unsafe fn _mm512_unpackb<const IMM8: u8>(a: __m512i) -> __m512i {
     dst
 }
 
-/// Same as [`_tile_movrow`]
+/// Read a row from a tile register to a ZMM vector register.
 ///
 /// Requires `avx10.2`
 #[target_feature(enable = "avx512f")]
-pub unsafe fn __tile_movrow<const SRC: u8>(_tsrc: *const __tile1024i<SRC>, row: u32) -> __m512i
-where 
-    __tile1024i<SRC>: ValidSimdReg,
-{
-    unsafe {
-        _tile_movrow::<SRC>(row)
-    }
-}
-
-/// Move a row between a tile register and a ZMM vector register. Row index selected by GPR or immediate.
-///
-/// Requires `avx10.2`
-#[target_feature(enable = "avx512f")]
-pub unsafe fn _tile_movrow<const SRC: u8>(row: u32) -> __m512i
-where 
-    __tile1024i<SRC>: ValidSimdReg,
+pub unsafe fn _tile_movrow<const TSRC: u8>(row: u32) -> __m512i
+where
+    __tile1024i<TSRC>: ValidSimdReg,
 {
     let dst;
 
     unsafe {
         asm!(
-            "tilemovrow {dst}, tmm{SRC}, {row:e}",
+            "tilemovrow {dst}, tmm{TSRC}, {row:e}",
             dst = out(zmm_reg) dst,
             row = in(reg) row,
-            SRC = const SRC,
+            TSRC = const TSRC,
         );
     }
 
     dst
+}
+
+/// Write a row to a tile register from a ZMM vector register.
+///
+/// Requires `avx10.2`
+#[target_feature(enable = "avx512f")]
+pub unsafe fn _tile_setrow<const TDST: u8>(row: u32, src: __m512i)
+where
+    __tile1024i<TDST>: ValidSimdReg,
+{
+    unsafe {
+        intr_asm!(
+            tmm{TDST} = TDST[0..8],
+            "tilemovrow tmm{TDST}, {src}, {row:e}",
+            row = in(reg) row,
+            src = in(zmm_reg) src,
+        );
+    }
+}
+
+/// Write a row to a tile register from a ZMM vector register.
+///
+/// Requires `avx10.2`
+#[target_feature(enable = "avx512f")]
+pub unsafe fn _tile_setcol<const TDST: u8>(col: u32, src: __m512i)
+where
+    __tile1024i<TDST>: ValidSimdReg,
+{
+    unsafe {
+        intr_asm!(
+            tmm{TDST} = TDST[0..8],
+            "tilemovcol tmm{TDST}, {src}, {col:e}",
+            col = in(reg) col,
+            src = in(zmm_reg) src,
+        );
+    }
+}
+
+/// #define ACE_SCALE_A(g) (((g) & 0x3) << 4)
+pub const fn ace_scale_a(g: u8) -> u8 {
+    (g & 0x3) << 4
+}
+
+/// #define ACE_SCALE_B(g) (((g) & 0x3) << 0)
+pub const fn ace_scale_b(g: u8) -> u8 {
+    g & 0x3
 }

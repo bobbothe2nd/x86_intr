@@ -95,7 +95,7 @@ use proc_macro::TokenStream;
 /// # }
 /// ```
 ///
-/// Any unbounded range fails to compile:
+/// Any unbound range fails to compile:
 ///
 /// ```compile_fail
 /// # const DST: u8 = 3;
@@ -114,6 +114,7 @@ use proc_macro::TokenStream;
 ///     src = in(reg) a,
 ///     options(nostack, nomem, preserves_flags)
 /// );
+///
 /// intr_gen::intr_asm!(
 ///     mm{DST} = DST[..],
 ///     "movd mm{DST}, {src:e}",

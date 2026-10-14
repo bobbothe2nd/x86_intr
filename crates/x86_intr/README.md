@@ -24,6 +24,7 @@ Intel intrinsics:
 * [POPCNT](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=POPCNT)
 * [RAO_INT](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=RAO_INT)
 * [RDPID](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=RDPID)
+* [RTM](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=RTM) (and `xtestn`)
 * [SERIALIZE](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=SERIALIZE)
 * [TSXLDTRK](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=TSXLDTRK)
 * [TSXLDTRK](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#othertechs=TSXLDTRK)

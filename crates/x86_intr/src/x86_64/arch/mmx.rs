@@ -2500,7 +2500,7 @@ where
     unsafe {
         intr_asm!(
             mm{A} = A[0..8],
-            "movq {dst:e}, mm{A}",
+            "movq {dst}, mm{A}",
             dst = out(reg) dst,
             options(nostack, nomem, preserves_flags),
         );

@@ -94,3 +94,56 @@ __m512i _mm512_unpackb(__m512i a, unsigned int b);
 /* ACE tile operations */
 // TILEMOVROW
 __m512i _tile_movrow(const __tile1024i *tsrc, unsigned int row);
+/* _tile_setrow — write direction */
+void _tile_setrow(__tile1024i *tdst, unsigned int row, __m512i src);
+/* _tile_setcol — Write only: tmm←zmm col */
+void _tile_setcol(__tile1024i *tdst, unsigned int row, __m512i src);
+/* _tile_cvtrowd2ps — Move row INT32→FP32 */
+__m512 _tile_cvtrowd2ps(const __tile1024i *tsrc, unsigned int row);
+/* _tile_cvtrowps2bf16h — high half-word of each dword */
+__m512i _tile_cvtrowps2bf16h(const __tile1024i *tsrc, unsigned int row);
+/* _tile_cvtrowps2bf16l — low half-word of each dword */
+__m512i _tile_cvtrowps2bf16l(const __tile1024i *tsrc, unsigned int row);
+/* _tile_cvtrowps2phh — high half-word of each dword */
+__m512i _tile_cvtrowps2phh(const __tile1024i *tsrc, unsigned int row);
+/* _tile_cvtrowps2phl — low half-word of each dword */
+__m512i _tile_cvtrowps2phl(const __tile1024i *tsrc, unsigned int row);
+/* Compose the imm8 scale-group selector with | :
+* ACE_SCALE_A(g) imm8[5:4] A-input scale group (0..3)
+* ACE_SCALE_B(g) imm8[1:0] B-input scale group (0..3)
+* imm8[7:6] and imm8[3:2] are reserved and must be zero. */
+#define ACE_SCALE_A(g) (((g) & 0x3) << 4)
+#define ACE_SCALE_B(g) (((g) & 0x3) << 0)
+/* _tile_top4mxbf8ps — BF8 × BF8 */
+void _tile_top4mxbf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
+/* _tile_top4mxbhf8ps — BF8 × HF8 */
+void _tile_top4mxbhf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
+/* _tile_top4mxhbf8ps — HF8 × BF8 */
+void _tile_top4mxhbf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
+/* _tile_top4mxhf8ps — HF8 × HF8 */
+void _tile_top4mxhf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
+/* _tile_top4mxbssps — MX INT8 rank-4 OP S×S; BSR scaled; FP32 accum */
+void _tile_top4mxbssps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
+/* _tile_top2bf16ps — BF16 rank-2 OP; FP32 accum; no scaling */
+void _tile_top2bf16ps(__tile1024i *tdst, __m512i src1, __m512i src2);
+/* _tile_top4bssd — signed A × signed B */
+void _tile_top4bssd(__tile1024i *tdst, __m512i src1, __m512i src2);
+/* _tile_top4bsud — signed A × unsigned B */
+void _tile_top4bsud(__tile1024i *tdst, __m512i src1, __m512i src2);
+/* _tile_top4busd — unsigned A × signed B */
+void _tile_top4busd(__tile1024i *tdst, __m512i src1, __m512i src2);
+/* _tile_top4buud — unsigned A × unsigned B */
+void _tile_top4buud(__tile1024i *tdst, __m512i src1, __m512i src2);
+
+/* _bsrinit — Init BSR to 0x7F (E8M0 scale=1) */
+void _bsrinit(void);
+/* _bsrmovf — Write full BSR from two ZMMs */
+void _bsrmovf(__m512i a_scales, __m512i b_scales);
+/* _bsrmovh — write direction */
+void _bsrmovh(__m512i a_scales);
+/* _bsrmovh_r — read direction */
+__m512i _bsrmovh_r(void);
+/* _bsrmovl — write direction */
+void _bsrmovl(__m512i b_scales);
+/* _bsrmovl_r — read direction */
+__m512i _bsrmovl_r(void);
