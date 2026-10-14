@@ -611,7 +611,8 @@ pub unsafe fn _mm512_cvtssepi32_epi8(a: __m512i) -> __m128i {
 
     unsafe {
         asm!(
-            "vpmovssdb {dst}, {a}",
+            ".insn <encoding 0x62 0xF3 0x0F 0x38 0x41 /r>, {dst}, {a}",
+            // "vpmovssdb {dst}, {a}",
             dst = out(xmm_reg) dst,
             a = in(zmm_reg) a,
         );
@@ -692,7 +693,7 @@ where
     }
 }
 
-/// Write a row to a tile register from a ZMM vector register.
+/// Write a column to a tile register from a ZMM vector register.
 ///
 /// Requires `avx10.2`
 #[target_feature(enable = "avx512f")]
@@ -708,6 +709,28 @@ where
             src = in(zmm_reg) src,
         );
     }
+}
+
+/// Read a row from a tile register to a ZMM vector register.
+///
+/// Requires `avx10.2`
+#[target_feature(enable = "avx512f")]
+pub unsafe fn _tile_cvtrowd2p<const TSRC: u8>(row: u32) -> __m512i
+where
+    __tile1024i<TSRC>: ValidSimdReg,
+{
+    let dst;
+
+    unsafe {
+        asm!(
+            "tcvtrowd2ps {dst}, tmm{TSRC}, {row:e}",
+            dst = out(zmm_reg) dst,
+            row = in(reg) row,
+            TSRC = const TSRC,
+        );
+    }
+
+    dst
 }
 
 /// #define ACE_SCALE_A(g) (((g) & 0x3) << 4)

@@ -12,6 +12,21 @@ where
 
 impl<const R: u8> Sealed for __tile1024i<R> where Self: ValidSimdReg {}
 
+impl<const R: u8> __tile1024i<R>
+where 
+    Self: ValidSimdReg,
+{
+    /// Constructs and zeros a tile register
+    #[inline(always)]
+    pub unsafe fn zeroed() -> Self {
+        unsafe {
+            _tile_zero::<R>();
+        }
+
+        Self
+    }
+}
+
 impl ValidSimdReg for __tile1024i<0> {}
 impl ValidSimdReg for __tile1024i<1> {}
 impl ValidSimdReg for __tile1024i<2> {}
@@ -32,7 +47,7 @@ where
 
 /// Same as [`_tile_cmmimfp16ps`]
 ///
-/// Requires `amx_complex`.
+/// Requires `amx-complex`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_cmmimfp16ps)
 #[inline(always)]
@@ -56,7 +71,7 @@ pub unsafe fn __tile_cmmimfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// The imaginary part of the a element is multiplied with the real part of the corresponding `b` element, and the real part of the a element is multiplied with the imaginary part of the corresponding `b` elements.
 /// The two accumulated results are added, and then accumulated into the corresponding row and column of `dst`.
 ///
-/// Requires `amx_complex`.
+/// Requires `amx-complex`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_cmmimfp16ps)
 #[inline(always)]
@@ -79,7 +94,7 @@ where
 
 /// Same as [`_tile_cmmrlfp16ps`]
 ///
-/// Requires `amx_complex`.
+/// Requires `amx-complex`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_cmmrlfp16ps)
 #[inline(always)]
@@ -103,7 +118,7 @@ pub unsafe fn __tile_cmmrlfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// The real part of the a element is multiplied with the real part of the corresponding `b` element, and the negated imaginary part of the a element is multiplied with the imaginary part of the corresponding `b` elements.
 /// The two accumulated results are added, and then accumulated into the corresponding row and column of `dst`.
 ///
-/// Requires `amx_complex`.
+/// Requires `amx-complex`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_cmmrlfp16ps)
 #[inline(always)]
@@ -126,7 +141,7 @@ where
 
 /// Same as [`__tile_dpbf16ps`]
 ///
-/// Requires `amx_bf16`.
+/// Requires `amx-bf16`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbf16ps)
 #[inline(always)]
@@ -146,7 +161,7 @@ pub unsafe fn __tile_dpbf16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
 
 /// Compute dot-product of BF16 (16-bit) floating-point pairs in tiles `a` and `b`, accumulating the intermediate single-precision (32-bit) floating-point elements with elements in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_bf16`.
+/// Requires `amx-bf16`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbf16ps)
 #[inline(always)]
@@ -169,7 +184,7 @@ where
 
 /// Same as [`_tile_dpbssd`]
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbssd)
 #[inline(always)]
@@ -191,7 +206,7 @@ pub unsafe fn __tile_dpbssd<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// Multiply groups of 4 adjacent pairs of signed 8-bit integers in a with corresponding signed 8-bit integers in `b`, producing 4 intermediate 32-bit results.
 /// Sum these 4 results with the corresponding 32-bit integer in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbssd)
 #[inline(always)]
@@ -214,7 +229,7 @@ where
 
 /// Same as [`_tile_dpbsud`]
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbsud)
 #[inline(always)]
@@ -236,7 +251,7 @@ pub unsafe fn __tile_dpbsud<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// Multiply groups of 4 adjacent pairs of signed 8-bit integers in a with corresponding unsigned 8-bit integers in `b`, producing 4 intermediate 32-bit results.
 /// Sum these 4 results with the corresponding 32-bit integer in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbsud)
 #[inline(always)]
@@ -259,7 +274,7 @@ where
 
 /// Same as [`_tile_dpbusd`]
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbusd)
 #[inline(always)]
@@ -281,7 +296,7 @@ pub unsafe fn __tile_dpbusd<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in a with corresponding signed 8-bit integers in `b`, producing 4 intermediate 32-bit results.
 /// Sum these 4 results with the corresponding 32-bit integer in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbusd)
 #[inline(always)]
@@ -304,7 +319,7 @@ where
 
 /// Same as [`_tile_dpbuud`]
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpbuud)
 #[inline(always)]
@@ -326,7 +341,7 @@ pub unsafe fn __tile_dpbuud<const DST: u8, const SRC0: u8, const SRC1: u8>(
 /// Multiply groups of 4 adjacent pairs of unsigned 8-bit integers in `a` with corresponding unsigned 8-bit integers in `b`, producing 4 intermediate 32-bit results.
 /// Sum these 4 results with the corresponding 32-bit integer in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_int8`.
+/// Requires `amx-int8`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpbuud)
 #[inline(always)]
@@ -349,7 +364,7 @@ where
 
 /// Same as [`_tile_dpfp16ps`]
 ///
-/// Requires `amx_fp16`.
+/// Requires `amx-fp16`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_dpfp16ps)
 #[inline(always)]
@@ -369,7 +384,7 @@ pub unsafe fn __tile_dpfp16ps<const DST: u8, const SRC0: u8, const SRC1: u8>(
 
 /// Compute dot-product of FP16 (16-bit) floating-point pairs in tiles `a` and `b`, accumulating the intermediate single-precision (32-bit) floating-point elements with elements in `dst`, and store the 32-bit result back to tile `dst`.
 ///
-/// Requires `amx_fp16`.
+/// Requires `amx-fp16`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_dpfp16ps)
 #[inline(always)]
@@ -422,7 +437,7 @@ pub struct __tilecfg {
 /// If the specified pallette_id is zero, that signifies the init state for both the tile config and the tile data, and the tiles are zeroed.
 /// Any invalid configurations will result in #GP fault.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_loadconfig)
 #[inline(always)]
@@ -438,7 +453,7 @@ pub unsafe fn _tile_loadconfig(mem_addr: *const __tilecfg) {
 
 /// Same as [`_tile_loadd`]
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_loadd)
 #[inline(always)]
@@ -456,7 +471,7 @@ pub unsafe fn __tile_loadd<const DST: u8>(
 
 /// Load tile rows from memory specifieid by `base` address and `stride` into destination tile `dst` using the tile configuration previously configured via `_tile_loadconfig`.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_loadd)
 #[inline(always)]
@@ -477,7 +492,7 @@ where
 
 /// Release the tile configuration to return to the init state, which releases all storage it currently holds.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_release)
 #[inline(always)]
@@ -491,7 +506,7 @@ pub unsafe fn _tile_release() {
 /// The tile configuration format is specified below, and includes the tile type pallette, the number of bytes per row, and the number of rows.
 /// If tiles are not configured, all zeroes will be stored to memory.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_storeconfig)
 #[inline(always)]
@@ -507,7 +522,7 @@ pub unsafe fn _tile_storeconfig(mem_addr: *mut __tilecfg) {
 
 /// Same as [`_tile_stored`]
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stored)
 #[inline(always)]
@@ -522,7 +537,7 @@ where
 
 /// Store the tile specified by src to memory specifieid by base address and stride using the tile configuration previously configured via `_tile_loadconfig`.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stored)
 #[inline(always)]
@@ -543,7 +558,7 @@ where
 
 /// Same as [`_tile_stream_loadd`]
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_stream_loadd)
 #[inline(always)]
@@ -562,7 +577,7 @@ pub unsafe fn __tile_stream_loadd<const DST: u8>(
 /// Load tile rows from memory specifieid by `base` address and stride into destination tile `dst` using the tile configuration previously configured via `_tile_loadconfig`.
 /// This intrinsic provides a hint to the implementation that the data will likely not be reused in the near future and the data caching can be optimized accordingly.
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_stream_loadd)
 #[inline(always)]
@@ -583,7 +598,7 @@ where
 
 /// Same as [`_tile_zero`]
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=__tile_zero)
 #[inline(always)]
@@ -598,7 +613,7 @@ where
 
 /// Zero the tile specified by `dst`
 ///
-/// Requires `amx_tile`.
+/// Requires `amx-tile`.
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_tile_zero)
 #[inline(always)]
@@ -608,7 +623,7 @@ where
 {
     unsafe {
         intr_asm!(
-            tmm { DST } = DST[0..8],
+            tmm {DST} = DST[0..8],
             "tilezero tmm{DST}",
             options(nostack, nomem, preserves_flags)
         );

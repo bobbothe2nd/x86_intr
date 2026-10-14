@@ -5,6 +5,12 @@
 ///     // there is an onboard x87 FPU
 /// }
 /// ```
+///
+/// For unsupported features, this just gives you a lot of `unexpected token in input` errors.
+/// If you see that, you know this macro doesn't check that OR you just spelled it wrong.
+///
+/// This does not guarantee safety to use any functions. It is simply the CPUID feature check
+/// that says if the CPU encodes it or not. For more safety, use [`crate::is_x86_feature_detected`].
 #[macro_export]
 macro_rules! is_cpuid_feature_detected {
     (CPUID.1.0:ecx[$bit:literal]) => {
