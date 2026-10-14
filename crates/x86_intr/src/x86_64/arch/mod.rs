@@ -32,8 +32,10 @@ pub use tsxldtrk::*;
 pub use uintr::*;
 pub use wait::*;
 
+mod ace;
 mod amx;
 mod mmx;
 
+pub use ace::*;
 pub use amx::*;
 pub use mmx::*;

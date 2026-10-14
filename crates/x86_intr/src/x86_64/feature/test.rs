@@ -9,6 +9,9 @@ use core::{
 
 static CPUID_SET: AtomicU8 = AtomicU8::new(0);
 
+static AVX10_VSN: AtomicU8 = AtomicU8::new(u8::MAX);
+static ACE_VSN: AtomicU8 = AtomicU8::new(u8::MAX);
+
 static CPUID_0_0_EAX: AtomicU32 = AtomicU32::new(0);
 static CPUID_0_0_EBX: AtomicU32 = AtomicU32::new(0);
 static CPUID_0_0_ECX: AtomicU32 = AtomicU32::new(0);
@@ -21,6 +24,16 @@ static CPUID_7_0_EAX: AtomicU32 = AtomicU32::new(0);
 static CPUID_7_0_EBX: AtomicU32 = AtomicU32::new(0);
 static CPUID_7_0_ECX: AtomicU32 = AtomicU32::new(0);
 static CPUID_7_0_EDX: AtomicU32 = AtomicU32::new(0);
+
+static CPUID_7_1_EAX: AtomicU32 = AtomicU32::new(0);
+static CPUID_7_1_EBX: AtomicU32 = AtomicU32::new(0);
+static CPUID_7_1_ECX: AtomicU32 = AtomicU32::new(0);
+static CPUID_7_1_EDX: AtomicU32 = AtomicU32::new(0);
+
+static CPUID_24_1_EAX: AtomicU32 = AtomicU32::new(0);
+static CPUID_24_1_EBX: AtomicU32 = AtomicU32::new(0);
+static CPUID_24_1_ECX: AtomicU32 = AtomicU32::new(0);
+static CPUID_24_1_EDX: AtomicU32 = AtomicU32::new(0);
 
 static CPUID_8000_0000_0_EAX: AtomicU32 = AtomicU32::new(0);
 static CPUID_8000_0001_0_EDX: AtomicU32 = AtomicU32::new(0);
@@ -107,6 +120,42 @@ cpuid_load!(cpuid_7_0_ebx, CPUID:7 .0:ebx, 2, CPUID_7_0_EBX, CPUID_7_0_EAX=eax, 
 cpuid_load!(cpuid_7_0_ecx, CPUID:7 .0:ecx, 2, CPUID_7_0_ECX, CPUID_7_0_EAX=eax, CPUID_7_0_EBX=ebx, CPUID_7_0_ECX=ecx, CPUID_7_0_EDX=edx);
 cpuid_load!(cpuid_7_0_edx, CPUID:7 .0:edx, 2, CPUID_7_0_EDX, CPUID_7_0_EAX=eax, CPUID_7_0_EBX=ebx, CPUID_7_0_ECX=ecx, CPUID_7_0_EDX=edx);
 
-cpuid_load!(cpuid_8000_0000_0_eax, CPUID:8000_0000 .0:eax, 3, CPUID_8000_0000_0_EAX, CPUID_8000_0000_0_EAX=eax);
-cpuid_load!(cpuid_8000_0001_0_edx, CPUID:8000_0001 .0:edx, 4, CPUID_8000_0001_0_EDX, CPUID_8000_0001_0_EDX=edx);
-cpuid_load!(cpuid_8000_0008_0_ebx, CPUID:8000_0008 .0:ebx, 5, CPUID_8000_0008_0_EBX, CPUID_8000_0008_0_EBX=ebx);
+cpuid_load!(cpuid_7_1_eax, CPUID:7 .1:eax, 6, CPUID_7_1_EAX, CPUID_7_1_EAX=eax, CPUID_7_1_EBX=ebx, CPUID_7_1_ECX=ecx, CPUID_7_1_EDX=edx);
+cpuid_load!(cpuid_7_1_ebx, CPUID:7 .1:ebx, 6, CPUID_7_1_EBX, CPUID_7_1_EAX=eax, CPUID_7_1_EBX=ebx, CPUID_7_1_ECX=ecx, CPUID_7_1_EDX=edx);
+cpuid_load!(cpuid_7_1_ecx, CPUID:7 .1:ecx, 6, CPUID_7_1_ECX, CPUID_7_1_EAX=eax, CPUID_7_1_EBX=ebx, CPUID_7_1_ECX=ecx, CPUID_7_1_EDX=edx);
+cpuid_load!(cpuid_7_1_edx, CPUID:7 .1:edx, 6, CPUID_7_1_EDX, CPUID_7_1_EAX=eax, CPUID_7_1_EBX=ebx, CPUID_7_1_ECX=ecx, CPUID_7_1_EDX=edx);
+
+cpuid_load!(cpuid_24_1_eax, CPUID:0x24 .1:eax, 7, CPUID_24_1_EAX, CPUID_24_1_EAX=eax, CPUID_24_1_EBX=ebx, CPUID_24_1_ECX=ecx, CPUID_24_1_EDX=edx);
+cpuid_load!(cpuid_24_1_ebx, CPUID:0x24 .1:ebx, 7, CPUID_24_1_EBX, CPUID_24_1_EAX=eax, CPUID_24_1_EBX=ebx, CPUID_24_1_ECX=ecx, CPUID_24_1_EDX=edx);
+cpuid_load!(cpuid_24_1_ecx, CPUID:0x24 .1:ecx, 7, CPUID_24_1_ECX, CPUID_24_1_EAX=eax, CPUID_24_1_EBX=ebx, CPUID_24_1_ECX=ecx, CPUID_24_1_EDX=edx);
+cpuid_load!(cpuid_24_1_edx, CPUID:0x24 .1:edx, 7, CPUID_24_1_EDX, CPUID_24_1_EAX=eax, CPUID_24_1_EBX=ebx, CPUID_24_1_ECX=ecx, CPUID_24_1_EDX=edx);
+
+cpuid_load!(cpuid_8000_0000_0_eax, CPUID:0x8000_0000 .0:eax, 3, CPUID_8000_0000_0_EAX, CPUID_8000_0000_0_EAX=eax);
+cpuid_load!(cpuid_8000_0001_0_edx, CPUID:0x8000_0001 .0:edx, 4, CPUID_8000_0001_0_EDX, CPUID_8000_0001_0_EDX=edx);
+cpuid_load!(cpuid_8000_0008_0_ebx, CPUID:0x8000_0008 .0:ebx, 5, CPUID_8000_0008_0_EBX, CPUID_8000_0008_0_EBX=ebx);
+
+/// Queries version of AVX10 from CPUID
+pub fn avx10_vsn() -> u8 {
+    let global_vsn = AVX10_VSN.load(Ordering::Relaxed);
+
+    if global_vsn == u8::MAX {
+        let ver = __cpuid_count(0x24, 0).ebx as u8;
+        AVX10_VSN.store(ver, Ordering::Relaxed);
+        ver
+    } else {
+        global_vsn
+    }
+}
+
+/// Queries version of ACE from CPUID
+pub fn ace_vsn() -> u8 {
+    let global_vsn = ACE_VSN.load(Ordering::Relaxed);
+
+    if global_vsn == u8::MAX {
+        let ver = __cpuid_count(0x1D, 2).eax as u8;
+        ACE_VSN.store(ver, Ordering::Relaxed);
+        ver
+    } else {
+        global_vsn
+    }
+}

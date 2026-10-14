@@ -31,6 +31,38 @@ macro_rules! is_cpuid_feature_detected {
         ($crate::test::cpuid_7_0_edx() & (1u32 << $bit)) != 0u32
     };
 
+    (CPUID.7.1:eax[$bit:literal]) => {
+        ($crate::test::cpuid_7_1_eax() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.1:ebx[$bit:literal]) => {
+        ($crate::test::cpuid_7_1_ebx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.1:ecx[$bit:literal]) => {
+        ($crate::test::cpuid_7_1_ecx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.7.1:edx[$bit:literal]) => {
+        ($crate::test::cpuid_7_1_edx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.24.1:eax[$bit:literal]) => {
+        ($crate::test::cpuid_24_1_eax() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.24.1:ebx[$bit:literal]) => {
+        ($crate::test::cpuid_24_1_ebx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.24.1:ecx[$bit:literal]) => {
+        ($crate::test::cpuid_24_1_ecx() & (1u32 << $bit)) != 0u32
+    };
+
+    (CPUID.24.1:edx[$bit:literal]) => {
+        ($crate::test::cpuid_24_1_edx() & (1u32 << $bit)) != 0u32
+    };
+
     (CPUID.0x8000_0001 .0:edx[$bit:literal]) => {
         ($crate::test::cpuid_8000_0001_0_edx() & (1u32 << $bit)) != 0u32
     };
@@ -1541,6 +1573,24 @@ macro_rules! is_cpuid_feature_detected {
         }
     };
 
+    ("avx10.1") => {
+        if $crate::test::cpuid_0_0_eax() < 24
+        || $crate::test::cpuid_24_0_eax() == 0 {
+            false
+        } else {
+            $crate::is_cpuid_feature_detected!(CPUID.24 .1:ecx[2])
+        }
+    };
+
+    ("avx10.2") => {
+        if $crate::test::cpuid_0_0_eax() < 24
+        || $crate::test::cpuid_24_0_eax() == 0 {
+            false
+        } else {
+            $crate::is_cpuid_feature_detected!(CPUID.24 .1:ecx[3])
+        }
+    };
+
     ("APX_F") => {
         if $crate::test::cpuid_0_0_eax() < 7
         || $crate::test::cpuid_7_0_eax() == 0 {
@@ -1550,7 +1600,25 @@ macro_rules! is_cpuid_feature_detected {
         }
     };
 
+    ("apx_f") => {
+        if $crate::test::cpuid_0_0_eax() < 7
+        || $crate::test::cpuid_7_0_eax() == 0 {
+            false
+        } else {
+            $crate::is_cpuid_feature_detected!(CPUID.7 .1:edx[21])
+        }
+    };
+
     ("SEC_TEE_ATTESTATION") => {
+        if $crate::test::cpuid_0_0_eax() < 7
+        || $crate::test::cpuid_7_0_eax() == 0 {
+            false
+        } else {
+            $crate::is_cpuid_feature_detected!(CPUID.7 .1:edx[22])
+        }
+    };
+
+    ("sec_tee_Attestation") => {
         if $crate::test::cpuid_0_0_eax() < 7
         || $crate::test::cpuid_7_0_eax() == 0 {
             false
