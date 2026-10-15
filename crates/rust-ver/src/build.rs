@@ -87,6 +87,8 @@ pub fn cfg_rust_channel(name: &str) -> Result<(), Error> {
 }
 
 /// Improves the correctness of build scripts that detect the Rust build environment.
+///
+/// This tells cargo to rerun the build script if the environment variable `RUSTC` changes.
 pub fn rerun_if_rustc_changed() {
     println!("cargo:rerun-if-env-changed=RUSTC");
 }

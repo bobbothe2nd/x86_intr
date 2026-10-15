@@ -1,11 +1,11 @@
 [package]
 name = "rust-ver"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.80"
 documentation = "https://docs.rs/rust-ver"
 repository = "https://github.com/bobbothe2nd/x86_intr"
-description = "Hardware/compiler intrinsic generator"
+description = "Build-time detection of Rust/LLVM versions & channelr"
 license = "MIT"
 keywords = ["llvm", "version", "version-requirement"]
 categories = ["rust-patterns", "config", "development-tools::build-utils", "development-tools"]

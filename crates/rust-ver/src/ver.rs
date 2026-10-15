@@ -61,6 +61,8 @@ impl Display for Version {
 
 impl Version {
     /// Structures a version containing major, minor, and patch
+    #[inline]
+    #[must_use]
     pub const fn new(major: u32, minor: u32, patch: u32) -> Self {
         Self {
             major,
@@ -123,19 +125,18 @@ impl Channel {
     }
 }
 
-static RUSTC_VER: LazyLock<Option<Box<[u8]>>> = LazyLock::new(|| {
+static RUSTC_VER: LazyLock<Option<Box<str>>> = LazyLock::new(|| {
     let output = Command::new("rustc").arg("-vV").output().ok()?;
 
     if !output.status.success() {
         return None;
     }
 
-    Some(output.stdout.into_boxed_slice())
+    Some(Box::from(from_utf8(&output.stdout).ok()?))
 });
 
 static RUST_CHANNEL: LazyLock<Result<Channel, Error>> = LazyLock::new(|| {
-    let stdout = from_utf8(RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?)
-        .map_err(|_| Error::InvalidOutput)?;
+    let stdout = RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?;
 
     let version = stdout
         .lines()
@@ -149,8 +150,7 @@ static RUST_CHANNEL: LazyLock<Result<Channel, Error>> = LazyLock::new(|| {
 });
 
 static RUST_VERSION: LazyLock<Result<Version, Error>> = LazyLock::new(|| {
-    let stdout = from_utf8(RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?)
-        .map_err(|_| Error::InvalidOutput)?;
+    let stdout = RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?;
 
     let version = stdout
         .lines()
@@ -162,8 +162,7 @@ static RUST_VERSION: LazyLock<Result<Version, Error>> = LazyLock::new(|| {
 });
 
 static LLVM_VERSION: LazyLock<Result<Version, Error>> = LazyLock::new(|| {
-    let stdout = from_utf8(RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?)
-        .map_err(|_| Error::InvalidOutput)?;
+    let stdout = RUSTC_VER.as_ref().ok_or(Error::RustcFailed)?;
 
     let version = stdout
         .lines()
@@ -174,16 +173,19 @@ static LLVM_VERSION: LazyLock<Result<Version, Error>> = LazyLock::new(|| {
 });
 
 /// Detects current Rust channel used by `rustc`
+#[inline]
 pub fn rust_channel() -> Result<Channel, Error> {
     *RUST_CHANNEL
 }
 
 /// Detects current Rust version used by `rustc`
+#[inline]
 pub fn rust_ver() -> Result<Version, Error> {
     *RUST_VERSION
 }
 
 /// Detects current LLVM version used by `rustc`
+#[inline]
 pub fn llvm_ver() -> Result<Version, Error> {
     *LLVM_VERSION
 }
