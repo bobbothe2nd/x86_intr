@@ -1,11 +1,13 @@
 //! All intrinsic implementations
 
+mod amx;
 mod bit;
 mod cache;
 mod cet_ss;
 mod command;
 mod cpu;
 mod memory;
+mod mmx;
 mod msr;
 mod mwaitx;
 mod protection;
@@ -16,12 +18,14 @@ mod tsxldtrk;
 mod uintr;
 mod wait;
 
+pub use amx::*;
 pub use bit::*;
 pub use cache::*;
 pub use cet_ss::*;
 pub use command::*;
 pub use cpu::*;
 pub use memory::*;
+pub use mmx::*;
 pub use msr::*;
 pub use mwaitx::*;
 pub use protection::*;
@@ -32,10 +36,5 @@ pub use tsxldtrk::*;
 pub use uintr::*;
 pub use wait::*;
 
-mod ace;
-mod amx;
-mod mmx;
-
-pub use ace::*;
-pub use amx::*;
-pub use mmx::*;
+// mod ace;
+// pub use ace::*;

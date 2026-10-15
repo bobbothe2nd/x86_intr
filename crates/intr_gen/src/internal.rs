@@ -1,7 +1,7 @@
 use core::range::Range;
 
 use proc_macro::{
-    token_stream::IntoIter, Delimiter, Group, Ident, Punct, Spacing, Span, TokenStream, TokenTree,
+    Delimiter, Group, Ident, Punct, Spacing, Span, TokenStream, TokenTree, token_stream::IntoIter,
 };
 
 pub(crate) fn gen_core_asm(args: TokenStream) -> TokenStream {

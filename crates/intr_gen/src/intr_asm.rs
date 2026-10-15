@@ -19,7 +19,7 @@ pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
             return error!(
                 tok.span(),
                 "expected `{{}}` register identifier, found `{tok}`"
-            )
+            );
         }
         None => return error!(reg_class.span(), "expected `{{...}}` register identifier"),
     };

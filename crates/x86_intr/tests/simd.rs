@@ -1,4 +1,7 @@
-use x86_intr::{arch::{__m64, __tile_stored, __tile1024i, _m_from_int64, _m_to_int64, _mm_add_pi16, ace_scale_b}, is_cpuid_feature_detected};
+use x86_intr::{
+    arch::{__m64, __tile_stored, __tile1024i, _m_from_int64, _m_to_int64, _mm_add_pi16},
+    is_cpuid_feature_detected,
+};
 
 const A_BYTES: [u8; 8] = [0, 10, 0, 5, 0, 20, 0, 15];
 const B_BYTES: [u8; 8] = [0, 5, 0, 15, 0, 10, 0, 20];
@@ -27,8 +30,6 @@ fn tile_zero() {
     if !is_cpuid_feature_detected!("amx-tile") {
         return;
     }
-
-    let _ = ace_scale_b(0x3);
 
     unsafe {
         let tile = __tile1024i::<0>::zeroed();

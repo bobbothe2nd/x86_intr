@@ -2,7 +2,7 @@ use core::{arch::asm, fmt};
 
 use intr_gen::intr_asm;
 
-use crate::x86_64::{private::Sealed, ValidSimdReg};
+use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying AMX register `tmmR`
 #[derive(Clone, Copy)]
@@ -13,7 +13,7 @@ where
 impl<const R: u8> Sealed for __tile1024i<R> where Self: ValidSimdReg {}
 
 impl<const R: u8> __tile1024i<R>
-where 
+where
     Self: ValidSimdReg,
 {
     /// Constructs and zeros a tile register
@@ -623,7 +623,7 @@ where
 {
     unsafe {
         intr_asm!(
-            tmm {DST} = DST[0..8],
+            tmm { DST } = DST[0..8],
             "tilezero tmm{DST}",
             options(nostack, nomem, preserves_flags)
         );

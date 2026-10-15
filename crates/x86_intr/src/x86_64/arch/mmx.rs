@@ -2,7 +2,7 @@ use core::{arch::asm, fmt};
 
 use intr_gen::intr_asm;
 
-use crate::x86_64::{private::Sealed, ValidSimdReg};
+use crate::x86_64::{ValidSimdReg, private::Sealed};
 
 /// A zero-sized compile-time handle identifying MMX register `mmR`
 #[derive(Clone, Copy)]
