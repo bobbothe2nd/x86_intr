@@ -2,6 +2,13 @@
 
 Parse LLVM version output from `rustc` and provides functions to configure an API around it.
 
+Similar crates include:
+
+* [`rustversion`](https://crates.io/crates/rustversion) provides proc-macros with no dependencies
+* [`rustc_version`](https://crates.io/crates/rustc_version) provides lower level query on `rustc` version & depends on `semver`
+
+Note: Those crates work on older versions and may be preferred for that reason
+
 ## Usage
 
 In `build.rs`:

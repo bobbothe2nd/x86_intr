@@ -62,7 +62,11 @@ impl Display for Version {
 impl Version {
     /// Structures a version containing major, minor, and patch
     pub const fn new(major: u32, minor: u32, patch: u32) -> Self {
-        Self { major, minor, patch }
+        Self {
+            major,
+            minor,
+            patch,
+        }
     }
 }
 
