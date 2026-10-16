@@ -98,6 +98,9 @@ __m512i _tile_movrow(const __tile1024i *tsrc, unsigned int row);
 void _tile_setrow(__tile1024i *tdst, unsigned int row, __m512i src);
 /* _tile_setcol — Write only: tmm←zmm col */
 void _tile_setcol(__tile1024i *tdst, unsigned int row, __m512i src);
+
+// === TODO ===
+
 /* _tile_cvtrowd2ps — Move row INT32→FP32 */
 __m512 _tile_cvtrowd2ps(const __tile1024i *tsrc, unsigned int row);
 /* _tile_cvtrowps2bf16h — high half-word of each dword */
