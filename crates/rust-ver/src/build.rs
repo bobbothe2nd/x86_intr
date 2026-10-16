@@ -1,17 +1,16 @@
 //! Build-time utilities for detecting compile-time Rust/LLVM version
 
 use crate::{
-    ver::{llvm_ver, rust_channel, rust_ver, Version},
-    Error,
+    Error, ver::{ToVersion, Version, llvm_ver, rust_channel, rust_ver},
 };
 
 /// Creates a `cfg(name)` true only if the detected LLVM is at least `threshold`
-pub fn cfg_llvm_threshold(name: &str, threshold: Version) -> Result<(), Error> {
+pub fn cfg_llvm_threshold<V: ToVersion>(name: &str, threshold: V) -> Result<(), Error> {
     println!("cargo:rustc-check-cfg=cfg({name})");
 
     let version = llvm_ver()?;
 
-    if version >= threshold {
+    if version >= threshold.to_version()? {
         println!("cargo:rustc-cfg={name}");
     }
 
@@ -21,14 +20,14 @@ pub fn cfg_llvm_threshold(name: &str, threshold: Version) -> Result<(), Error> {
 /// Creates a `cfg(name)` with the value of the detected LLVM version
 ///
 /// Emits the exact version, not a compatibility check.
-pub fn cfg_llvm_ver(name: &str) -> Result<(), Error> {
+pub fn cfg_llvm_ver(name: &str) -> Result<Version, Error> {
     println!("cargo:rustc-check-cfg=cfg({name}, values(any()))");
 
     let version = llvm_ver()?;
 
     println!("cargo:rustc-cfg={name}=\"{version}\"");
 
-    Ok(())
+    Ok(version)
 }
 
 /// Creates a compile-time environment variable `name` with the value of the detected LLVM version
@@ -41,12 +40,12 @@ pub fn env_llvm_ver(name: &str) -> Result<Version, Error> {
 }
 
 /// Creates a `cfg(name)` true only if the detected `rustc` is at least `threshold`
-pub fn cfg_rust_threshold(name: &str, threshold: Version) -> Result<(), Error> {
+pub fn cfg_rust_threshold<V: ToVersion>(name: &str, threshold: V) -> Result<(), Error> {
     println!("cargo:rustc-check-cfg=cfg({name})");
 
     let version = rust_ver()?;
 
-    if version >= threshold {
+    if version >= threshold.to_version()? {
         println!("cargo:rustc-cfg={name}");
     }
 
@@ -56,14 +55,14 @@ pub fn cfg_rust_threshold(name: &str, threshold: Version) -> Result<(), Error> {
 /// Creates a `cfg(name)` with the value of the detected `rustc` version
 ///
 /// Emits the exact version, not a compatibility check.
-pub fn cfg_rust_ver(name: &str) -> Result<(), Error> {
+pub fn cfg_rust_ver(name: &str) -> Result<Version, Error> {
     println!("cargo:rustc-check-cfg=cfg({name}, values(any()))");
 
     let version = rust_ver()?;
 
     println!("cargo:rustc-cfg={name}=\"{version}\"");
 
-    Ok(())
+    Ok(version)
 }
 
 /// Creates a compile-time environment variable `name` with the value of the detected `rustc` version
