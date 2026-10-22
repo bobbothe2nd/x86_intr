@@ -1,8 +1,8 @@
 [package]
 name = "rust-ver"
-version = "0.1.1"
-edition = "2021"
-rust-version = "1.80"
+version = "0.1.2"
+edition = "2015"
+rust-version = "1.0"
 documentation = "https://docs.rs/rust-ver"
 repository = "https://github.com/bobbothe2nd/x86_intr"
 description = "Build-time detection of Rust/LLVM versions & channelr"

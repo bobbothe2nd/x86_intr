@@ -1,6 +1,6 @@
-# LLVM Version (`rust-ver`)
+# Rust Version (`rust-ver`)
 
-Parse LLVM version output from `rustc` and provides functions to configure an API around it.
+Parse Rust/LLVM version output from `rustc` and provides functions to configure an API around it.
 
 Similar crates include:
 

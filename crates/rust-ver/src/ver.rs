@@ -1,7 +1,7 @@
 //! Lightweight version management built off `rustc --version --verbose`
 
 use std::{
-    fmt::{self, Display, Formatter}, process::Command, str::{FromStr, from_utf8}, sync::LazyLock,
+    fmt::{self, Display, Formatter}, process::Command, str::{FromStr, from_utf8}, sync::LazyLock, convert::{TryFrom, TryInto},
 };
 
 use crate::Error;
