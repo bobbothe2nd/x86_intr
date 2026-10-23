@@ -76,7 +76,7 @@ pub fn env_rust_ver(name: &str) -> Result<Version, Error> {
 
 /// Creates a `cfg(name)` with the value of the detected `rustc` channel
 pub fn cfg_rust_channel(name: &str) -> Result<(), Error> {
-    println!("cargo:rustc-check-cfg=cfg({name}, values(any()))");
+    println!("cargo:rustc-check-cfg=cfg({name}, values(\"nightly\", \"stable\", \"beta\", \"dev\"))");
 
     let channel = rust_channel()?;
 
