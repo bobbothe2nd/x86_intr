@@ -11,10 +11,7 @@ macro_rules! error {
 
         let args = ::proc_macro::TokenStream::from(::proc_macro::TokenTree::Literal(::proc_macro::Literal::string(&message)));
 
-        tokens.extend([
-            ::proc_macro::TokenTree::Group(::proc_macro::Group::new(::proc_macro::Delimiter::Parenthesis, args)),
-            ::proc_macro::TokenTree::Punct(::proc_macro::Punct::new(';', ::proc_macro::Spacing::Alone)),
-        ]);
+        tokens.extend([::proc_macro::TokenTree::Group(::proc_macro::Group::new(::proc_macro::Delimiter::Brace, args))]);
 
         tokens
     }};
