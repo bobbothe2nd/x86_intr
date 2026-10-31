@@ -14,6 +14,6 @@ categories = ["algorithms", "hardware-support", "no-std", "no-std::no-alloc"]
 version = "0.1"
 path = "../intr_gen"
 
-[build-dependencies.rust-ver]
-version = "0.1"
-path = "../rust-ver"
+[features]
+# TODO: remove when rust supports avx10
+avx10 = []

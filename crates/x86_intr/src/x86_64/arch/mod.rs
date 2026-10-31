@@ -1,5 +1,7 @@
 //! All intrinsic implementations
 
+// pub use intr_gen::asm;
+
 mod amx;
 mod bit;
 mod cache;

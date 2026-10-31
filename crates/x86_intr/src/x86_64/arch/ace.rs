@@ -3,7 +3,7 @@ use core::arch::{
     x86_64::{__m256i, __m512, __m512h, __m512i},
 };
 
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 use core::arch::x86_64::__m128i;
 
 use intr_gen::intr_asm;
@@ -274,7 +274,7 @@ pub unsafe fn _mm512_cvthf8_ph(a: __m256i) -> __m512h {
 /// Convert packed FP32 to BF8 E5M2 using RNE rounding, non-saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtps_bf8(a: __m512) -> __m256i {
     let dst;
@@ -293,7 +293,7 @@ pub unsafe fn _mm512_cvtps_bf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to BF8 E5M2 using RNE rounding, saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtpss_bf8(a: __m512) -> __m256i {
     let dst;
@@ -312,7 +312,7 @@ pub unsafe fn _mm512_cvtpss_bf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using RNE rounding, non-saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtps_hf8(a: __m512) -> __m256i {
     let dst;
@@ -331,7 +331,7 @@ pub unsafe fn _mm512_cvtps_hf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using RNE rounding, saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtpss_hf8(a: __m512) -> __m256i {
     let dst;
@@ -350,7 +350,7 @@ pub unsafe fn _mm512_cvtpss_hf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using RTO rounding, non-saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtrops_hf8(a: __m512) -> __m256i {
     let dst;
@@ -369,7 +369,7 @@ pub unsafe fn _mm512_cvtrops_hf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using RTO rounding, saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtropss_hf8(a: __m512) -> __m256i {
     let dst;
@@ -388,7 +388,7 @@ pub unsafe fn _mm512_cvtropss_hf8(a: __m512) -> __m256i {
 /// Convert packed FP32 to BF8 E5M2 using bias rounding, non-saturating. Bias rounding term is Operand 2.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasps_bf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -408,7 +408,7 @@ pub unsafe fn _mm512_cvtbiasps_bf8(a: __m512, b: __m512i) -> __m256i {
 /// Convert packed FP32 to BF8 E5M2 using bias rounding, saturating. Bias rounding term is Operand 2.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiaspss_bf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -428,7 +428,7 @@ pub unsafe fn _mm512_cvtbiaspss_bf8(a: __m512, b: __m512i) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using bias rounding, non-saturating. Bias rounding term is Operand 2.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasps_hf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -448,7 +448,7 @@ pub unsafe fn _mm512_cvtbiasps_hf8(a: __m512, b: __m512i) -> __m256i {
 /// Convert packed FP32 to HF8 E4M3 using bias rounding, saturating. Bias rounding term is Operand 2.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiaspss_hf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -468,7 +468,7 @@ pub unsafe fn _mm512_cvtbiaspss_hf8(a: __m512, b: __m512i) -> __m256i {
 /// Convert packed BF8 E5M2 to packed FP32. Conversion is exact; output register is 4x wider than input.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbf8_ps(a: __m128i) -> __m512 {
     let dst;
@@ -487,7 +487,7 @@ pub unsafe fn _mm512_cvtbf8_ps(a: __m128i) -> __m512 {
 /// Convert packed HF8 E4M3 to packed FP32. Conversion is exact; output register is 4x wider than input.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvthf8_ps(a: __m128i) -> __m512 {
     let dst;
@@ -506,7 +506,7 @@ pub unsafe fn _mm512_cvthf8_ps(a: __m128i) -> __m512 {
 /// Convert packed BF8 E5M2 to packed FP4 E2M1, saturating. Output register is half the width of input.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtf8_bf4s(a: __m512i) -> __m256i {
     let dst;
@@ -525,7 +525,7 @@ pub unsafe fn _mm512_cvtf8_bf4s(a: __m512i) -> __m256i {
 /// Convert packed HF8 E4M3 to packed FP4 E2M1, saturating. Output register is half the width of input.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvthf8_bf4s(a: __m512i) -> __m256i {
     let dst;
@@ -544,7 +544,7 @@ pub unsafe fn _mm512_cvthf8_bf4s(a: __m512i) -> __m256i {
 /// Convert packed FP4 E2M1 to packed HF8 E4M3. Conversion is exact; output register is 2x wider than input.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbf4_hf8(a: __m256i) -> __m512i {
     let dst;
@@ -563,7 +563,7 @@ pub unsafe fn _mm512_cvtbf4_hf8(a: __m256i) -> __m512i {
 /// Convert packed BF8 E5M2 to packed BF6 E3M2, saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtf8_bf6s(a: __m512i) -> __m512i {
     let dst;
@@ -582,7 +582,7 @@ pub unsafe fn _mm512_cvtf8_bf6s(a: __m512i) -> __m512i {
 /// Convert packed BF8 E5M2 to packed HF6 E2M3, saturating.
 ///
 /// Requires `avx10.2`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtfhf8(a: __m512i) -> __m512i {
     let dst;
@@ -601,7 +601,7 @@ pub unsafe fn _mm512_cvtfhf8(a: __m512i) -> __m512i {
 /// Truncate packed 32-bit signed integers to 8-bit with symmetric signed saturation, storing to destination register or memory.
 ///
 /// Requires `avx512-bw`/`avx512bw`
-#[cfg(llvm_avx10_2)]
+#[cfg(feature = "avx10")]
 #[target_feature(enable = "avx512bw")]
 pub unsafe fn _mm512_cvtssepi32_epi8(a: __m512i) -> __m128i {
     let dst;
