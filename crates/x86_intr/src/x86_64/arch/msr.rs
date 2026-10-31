@@ -39,18 +39,18 @@ pub unsafe fn _uwrmsr(__A: u64, __B: u64) {
     }
 }
 
-/// Reads the contents of a 64-bit MSR specified in `__A` into `dst`.
+/// Reads the content of a processor register specified in `reg_id`.
 ///
 /// Requires `rdpru` feature
 #[inline(always)]
-pub unsafe fn _rdpru(__A: u64) -> u64 {
+pub unsafe fn _rdpru(reg_id: u32) -> u64 {
     let lo: u32;
     let hi: u32;
 
     unsafe {
         asm!(
             "rdpru",
-            in("ecx") __A as u32,
+            in("ecx") reg_id,
             out("eax") lo,
             out("edx") hi,
         );

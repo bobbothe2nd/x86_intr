@@ -44,7 +44,7 @@ AMD intrinsics:
 
 Other intrinsics:
 
-* `_rdpkru`
+* `_rdpkru_u32`
 * `_wrpkru`
 * [ACE](https://x86ecosystem.org/wp-content/uploads/2026/06/ACE_v1_Specification_public_1_15.pdf) (including AMX)
 

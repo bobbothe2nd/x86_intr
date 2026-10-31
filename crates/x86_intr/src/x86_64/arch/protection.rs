@@ -20,15 +20,6 @@ pub unsafe fn _wrpkru(val: u32) {
 ///
 /// Requires `pku` and `ospke`.
 #[inline(always)]
-#[deprecated = "use `_rdpkru_u32` instead"]
-pub unsafe fn _rdpkru() -> u32 {
-    unsafe { _rdpkru_u32() }
-}
-
-/// Reads the value of PKRU.
-///
-/// Requires `pku` and `ospke`.
-#[inline(always)]
 pub unsafe fn _rdpkru_u32() -> u32 {
     let val;
 
