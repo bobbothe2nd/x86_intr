@@ -12,13 +12,26 @@ struct u32x2 {
 }
 
 #[inline(always)]
-fn concat_u32(lo: u32, hi: u32) -> u64 {
-    u64::from(lo) | (u64::from(hi) << 32)
+const fn concat_u32(lo: u32, hi: u32) -> u64 {
+    (lo as u64) | ((hi as u64) << 32)
 }
 
 #[inline(always)]
 const fn split_u64(x: u64) -> u32x2 {
     unsafe { core::mem::transmute::<u64, u32x2>(x) }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{u32x2, concat_u32, split_u64};
+
+    #[test]
+    fn splut_concat_uint() {
+        let x = 0xABCDEF987654321;
+        let u32x2 { hi, lo } = split_u64(x);
+        let y = concat_u32(lo, hi);
+        assert_eq!(x, y);
+    }
 }
 
 macro_rules! polymorphic {
