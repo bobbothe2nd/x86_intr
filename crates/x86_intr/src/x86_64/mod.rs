@@ -23,7 +23,7 @@ const fn split_u64(x: u64) -> u32x2 {
 
 #[cfg(test)]
 mod tests {
-    use super::{u32x2, concat_u32, split_u64};
+    use super::{concat_u32, split_u64, u32x2};
 
     #[test]
     fn splut_concat_uint() {

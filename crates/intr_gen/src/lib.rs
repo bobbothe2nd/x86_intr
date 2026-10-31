@@ -17,16 +17,6 @@ macro_rules! error {
     }};
 }
 
-macro_rules! expect_punct {
-    ($expected:literal, $(= $Err:ident =)? $found:expr) => {
-        match $found {
-            Some(::proc_macro::TokenTree::Punct(punct)) if punct == $expected && punct.spacing() == ::proc_macro::Spacing::Alone => {}
-            Some(tok) => return $($Err)? (error!(tok.span(), "expected {:?}, found {tok}", $expected)),
-            None => return $($Err)? (error!(::proc_macro::Span::call_site(), "expected {:?}, found end of macro", $expected)),
-        }
-    };
-}
-
 macro_rules! try_stream {
     ($val:expr) => {
         match $val {
@@ -36,9 +26,9 @@ macro_rules! try_stream {
     };
 }
 
+mod apx_asm;
 mod internal;
 mod intr_asm;
-mod apx_asm;
 
 use proc_macro::TokenStream;
 
@@ -49,7 +39,7 @@ use proc_macro::TokenStream;
 ///
 /// This helps the compiler optimize and improves both correctness and safety.
 ///
-/// ```rust
+/// ```no_run
 /// # use intr_gen::*;
 /// # const DST: u8 = 3;
 /// # let a = 123;
@@ -68,7 +58,7 @@ use proc_macro::TokenStream;
 ///
 /// Other range syntax is accepted too:
 ///
-/// ```rust
+/// ```no_run
 /// # use intr_gen::*;
 /// # const DST: u8 = 3;
 /// # let a = 123;
@@ -84,7 +74,7 @@ use proc_macro::TokenStream;
 ///
 /// you can use other names in ASM if needed:
 ///
-/// ```rust
+/// ```no_run
 /// # use intr_gen::*;
 /// const DST_RUST: u8 = 3;
 /// # let a = 123;

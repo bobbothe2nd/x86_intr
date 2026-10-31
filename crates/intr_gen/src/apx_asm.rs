@@ -30,12 +30,7 @@ enum RegClass {
 }
 
 enum RegArg {
-    InOut {
-        ty: RegArgTy,
-        class: RegClass,
-    },
+    InOut { ty: RegArgTy, class: RegClass },
 
-    Clobber {
-        reg: Box<str>,
-    }
+    Clobber { reg: Box<str> },
 }
