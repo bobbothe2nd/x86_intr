@@ -38,6 +38,7 @@ macro_rules! try_stream {
 
 mod internal;
 mod intr_asm;
+mod apx_asm;
 
 use proc_macro::TokenStream;
 
@@ -46,11 +47,14 @@ use proc_macro::TokenStream;
 /// For x86 registers which are clobber-only, this macro will allow you to easily clobber
 /// only the correct output register by constant expression rather than a string literal.
 ///
+/// This helps the compiler optimize and improves both correctness and safety.
+///
 /// ```rust
+/// # use intr_gen::*;
 /// # const DST: u8 = 3;
 /// # let a = 123;
 /// # unsafe {
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     // destination register
 ///     mm{DST} = DST[0..8],
 ///
@@ -65,10 +69,11 @@ use proc_macro::TokenStream;
 /// Other range syntax is accepted too:
 ///
 /// ```rust
+/// # use intr_gen::*;
 /// # const DST: u8 = 3;
 /// # let a = 123;
 /// # unsafe {
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     mm{DST} = DST[0..=7],
 ///     "movd mm{DST}, {src:e}",
 ///     src = in(reg) a,
@@ -77,13 +82,14 @@ use proc_macro::TokenStream;
 /// # }
 /// ```
 ///
-/// You can use other names in ASM too:
+/// you can use other names in ASM if needed:
 ///
 /// ```rust
+/// # use intr_gen::*;
 /// const DST_RUST: u8 = 3;
 /// # let a = 123;
 /// # unsafe {
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     mm{DST_ASM} = DST_RUST[0..=7],
 ///     "movd mm{DST_ASM}, {src:e}",
 ///     src = in(reg) a,
@@ -95,24 +101,25 @@ use proc_macro::TokenStream;
 /// Any unbound range fails to compile:
 ///
 /// ```compile_fail
+/// # use intr_gen::*;
 /// # const DST: u8 = 3;
 /// # let a = 123;
 /// # unsafe {
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     mm{DST} = DST[0..],
 ///     "movd mm{DST}, {src:e}",
 ///     src = in(reg) a,
 ///     options(nostack, nomem, preserves_flags)
 /// );
 ///
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     mm{DST} = DST[..8],
 ///     "movd mm{DST}, {src:e}",
 ///     src = in(reg) a,
 ///     options(nostack, nomem, preserves_flags)
 /// );
 ///
-/// intr_gen::intr_asm!(
+/// intr_asm!(
 ///     mm{DST} = DST[..],
 ///     "movd mm{DST}, {src:e}",
 ///     src = in(reg) a,
