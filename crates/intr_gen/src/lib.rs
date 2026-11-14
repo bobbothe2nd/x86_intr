@@ -1,3 +1,5 @@
+#![expect(unused)]
+
 macro_rules! error {
     ($span:expr, $($args:tt)*) => {{
         let message = ::std::format!($($args)*);
@@ -32,7 +34,7 @@ mod intr_asm;
 
 use proc_macro::TokenStream;
 
-/// Inline assembly with better support for arbitrary registers
+/// Inline assembly with better support for clobber-only registers
 ///
 /// For x86 registers which are clobber-only, this macro will allow you to easily clobber
 /// only the correct output register by constant expression rather than a string literal.
@@ -120,4 +122,10 @@ use proc_macro::TokenStream;
 #[proc_macro]
 pub fn intr_asm(input: TokenStream) -> TokenStream {
     intr_asm::intr_asm_internal(input)
+}
+
+/// Inline assembly with better support for arbitrary registers
+#[proc_macro]
+pub fn asm(input: TokenStream) -> TokenStream {
+    apx_asm::asm_internal(input)
 }

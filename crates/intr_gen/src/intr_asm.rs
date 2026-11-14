@@ -2,7 +2,7 @@ use core::range::Range;
 
 use proc_macro::{Delimiter, Group, Ident, Literal, Punct, Spacing, Span, TokenStream, TokenTree};
 
-use crate::internal::{gen_core_asm, gen_unreachable, parse_range};
+use crate::internal::{gen_unreachable, parse_range};
 
 pub(crate) fn intr_asm_internal(input: TokenStream) -> TokenStream {
     let tokens: Vec<_> = input.into_iter().collect();
@@ -201,7 +201,7 @@ fn make_arm(clobbers: &[ClobberSpec], case: &Case, asm: &TokenStream) -> TokenSt
         append_clobber(&mut asm_tokens, clobber, register);
     }
 
-    let body = Group::new(Delimiter::Brace, gen_core_asm(asm_tokens));
+    let body = Group::new(Delimiter::Brace, crate::apx_asm::asm_internal(asm_tokens));
 
     arm.extend([TokenTree::Group(body)]);
 
@@ -226,9 +226,8 @@ fn append_clobber(asm: &mut TokenStream, clobber: &ClobberSpec, register: usize)
     ]);
 
     asm.extend([
-        TokenTree::Ident(Ident::new("out", clobber.asm_const.span())),
+        TokenTree::Ident(Ident::new("clobber", clobber.asm_const.span())),
         register_group(clobber, register),
-        TokenTree::Ident(Ident::new("_", clobber.asm_const.span())),
         TokenTree::Punct(Punct::new(',', Spacing::Alone)),
     ]);
 }

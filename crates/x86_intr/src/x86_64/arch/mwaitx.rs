@@ -17,15 +17,13 @@ use core::arch::asm;
 /// This obviously hurts performance. Thats why [`mwaitx_no_timeout`] exists.
 #[inline(always)]
 pub unsafe fn _mwaitx(extensions: u32, hints: u32, timeout: u32) {
-    let _rbx: u64;
-
     unsafe {
         asm!(
             "mov {tmp:r}, rbx",
             "mov ebx, {timeout:e}",
             "mwaitx",
             "mov rbx, {tmp:r}",
-            tmp = out(reg) _rbx,
+            tmp = out(reg) _,
             timeout = in(reg) timeout,
             in("eax") hints,
             in("ecx") extensions,
