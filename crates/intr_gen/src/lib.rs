@@ -28,7 +28,7 @@ macro_rules! try_stream {
     };
 }
 
-mod apx_asm;
+// mod apx_asm;
 mod internal;
 mod intr_asm;
 
@@ -124,8 +124,10 @@ pub fn intr_asm(input: TokenStream) -> TokenStream {
     intr_asm::intr_asm_internal(input)
 }
 
+/*
 /// Inline assembly with better support for arbitrary registers
 #[proc_macro]
 pub fn asm(input: TokenStream) -> TokenStream {
     apx_asm::asm_internal(input)
 }
+*/
