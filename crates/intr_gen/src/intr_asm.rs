@@ -226,8 +226,9 @@ fn append_clobber(asm: &mut TokenStream, clobber: &ClobberSpec, register: usize)
     ]);
 
     asm.extend([
-        TokenTree::Ident(Ident::new("clobber", clobber.asm_const.span())),
+        TokenTree::Ident(Ident::new("out", clobber.asm_const.span())),
         register_group(clobber, register),
+        TokenTree::Ident(Ident::new("_", clobber.asm_const.span())),
         TokenTree::Punct(Punct::new(',', Spacing::Alone)),
     ]);
 }
