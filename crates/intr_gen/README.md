@@ -23,6 +23,6 @@ where
 }
 ```
 
-That `tmm{DST} = DST[0..8]` is the special part. It marks the output of this assembly is in a `tmm` register specified by the constant `DST`. It gets redefined as `DST` as an assembly-accessible constant used for formatting the register to be used. The valid range for this register is `tmm{0..8}` or `tmm{0..=7}`. It marks the used register as clobbered and an output for this code. That's it.
+That `tmm{DST} = DST[0..8]` is the special part. It marks the output of this assembly as in a `tmm` register specified by the constant `DST`. It gets redefined as `DST` as an assembly-accessible constant used for formatting the register to be used. The valid range for this register is `tmm{0..8}` or `tmm{0..=7}`. It marks the used register as clobbered and an output for this code. That's it.
 
 It doesn't sound like much, but for registers that are clobber-only, it reduces boilerplate a LOT.
