@@ -13,7 +13,7 @@ pub unsafe fn _xabort<const IMM8: u8>() {
             "xabort {IMM8}",
             IMM8 = const IMM8,
             in("eax") (IMM8 as u32) << 24,
-            options(nostack, nomem, preserves_flags)
+            options(nostack, preserves_flags)
         );
     }
 }
@@ -40,7 +40,7 @@ pub unsafe fn _xbegin() -> u32 {
             "mov {dst:e}, eax",
             "3:",
             dst = out(reg) dst,
-            options(nostack, nomem)
+            options(nostack)
         );
     }
 
@@ -57,7 +57,7 @@ pub unsafe fn _xbegin() -> u32 {
 #[inline(always)]
 pub unsafe fn _xend() {
     unsafe {
-        asm!("xend", options(nostack, nomem, preserves_flags));
+        asm!("xend", options(nostack, preserves_flags));
     }
 }
 
@@ -75,30 +75,9 @@ pub unsafe fn _xtest() -> bool {
             "xtest",
             "setnz {dst}",
             dst = out(reg_byte) dst,
-            options(nostack, nomem)
+            options(nostack)
         );
-
-        core::mem::transmute::<u8, bool>(dst)
     }
-}
 
-/// Query the transactional execution status, return false if inside a transactionally executing RTM or HLE region.
-///
-/// Requires `rtm`
-///
-/// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_xtest)
-#[inline(always)]
-pub unsafe fn xtestn() -> bool {
-    let dst: u8;
-
-    unsafe {
-        asm!(
-            "xtest",
-            "setz {dst}",
-            dst = out(reg_byte) dst,
-            options(nostack, nomem)
-        );
-
-        core::mem::transmute::<u8, bool>(dst)
-    }
+    dst != 0
 }
