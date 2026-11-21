@@ -2,6 +2,7 @@
 
 // pub use intr_gen::asm;
 
+mod ace;
 mod amx;
 mod bit;
 mod cache;
@@ -20,6 +21,7 @@ mod tsxldtrk;
 mod uintr;
 mod wait;
 
+pub use ace::*;
 pub use amx::*;
 pub use bit::*;
 pub use cache::*;
@@ -37,6 +39,3 @@ pub use tls::*;
 pub use tsxldtrk::*;
 pub use uintr::*;
 pub use wait::*;
-
-mod ace;
-pub use ace::*;

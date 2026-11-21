@@ -1,5 +1,8 @@
 /* ACE v1.15 instruction mnemonics from the ACE specification. */
 /* cvtph_bf8 — BF8 (E5M2), non-saturating */
+
+/* https://x86ecosystem.org/wp-content/uploads/2026/06/ACE_v1_Specification_public_1_15.pdf */
+
 // VCVTPH2BF8
 __m256i _mm512_cvtph_bf8(__m512h a);
 /* cvtph_hf8 — HF8 (E4M3), non-saturating */
@@ -95,21 +98,29 @@ __m512i _mm512_unpackb(__m512i a, unsigned int b);
 // TILEMOVROW
 __m512i _tile_movrow(const __tile1024i *tsrc, unsigned int row);
 /* _tile_setrow — write direction */
+// TILEMOVROW
 void _tile_setrow(__tile1024i *tdst, unsigned int row, __m512i src);
 /* _tile_setcol — Write only: tmm←zmm col */
+// TILEMOVCOL
 void _tile_setcol(__tile1024i *tdst, unsigned int row, __m512i src);
+
+/* _tile_cvtrowd2ps — Move row INT32→FP32 */
+// TCVTROWD2PS
+__m512 _tile_cvtrowd2ps(const __tile1024i *tsrc, unsigned int row);
+/* _tile_cvtrowps2bf16h — high half-word of each dword */
+// TCVTROWPS2BF16H
+__m512i _tile_cvtrowps2bf16h(const __tile1024i *tsrc, unsigned int row);
 
 // === TODO ===
 
-/* _tile_cvtrowd2ps — Move row INT32→FP32 */
-__m512 _tile_cvtrowd2ps(const __tile1024i *tsrc, unsigned int row);
-/* _tile_cvtrowps2bf16h — high half-word of each dword */
-__m512i _tile_cvtrowps2bf16h(const __tile1024i *tsrc, unsigned int row);
 /* _tile_cvtrowps2bf16l — low half-word of each dword */
+// TCVTROWPS2BF16L
 __m512i _tile_cvtrowps2bf16l(const __tile1024i *tsrc, unsigned int row);
 /* _tile_cvtrowps2phh — high half-word of each dword */
+// TCVTROWPS2PHH
 __m512i _tile_cvtrowps2phh(const __tile1024i *tsrc, unsigned int row);
 /* _tile_cvtrowps2phl — low half-word of each dword */
+// TCVTROWPS2PHL
 __m512i _tile_cvtrowps2phl(const __tile1024i *tsrc, unsigned int row);
 /* Compose the imm8 scale-group selector with | :
 * ACE_SCALE_A(g) imm8[5:4] A-input scale group (0..3)
@@ -118,35 +129,51 @@ __m512i _tile_cvtrowps2phl(const __tile1024i *tsrc, unsigned int row);
 #define ACE_SCALE_A(g) (((g) & 0x3) << 4)
 #define ACE_SCALE_B(g) (((g) & 0x3) << 0)
 /* _tile_top4mxbf8ps — BF8 × BF8 */
+// TOP4MXHF8PS 
 void _tile_top4mxbf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
 /* _tile_top4mxbhf8ps — BF8 × HF8 */
+// TOP4MXBHF8PS
 void _tile_top4mxbhf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
 /* _tile_top4mxhbf8ps — HF8 × BF8 */
+// TOP4MXHBF8PS
 void _tile_top4mxhbf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
 /* _tile_top4mxhf8ps — HF8 × HF8 */
+// TOP4MXHF8PS
 void _tile_top4mxhf8ps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
 /* _tile_top4mxbssps — MX INT8 rank-4 OP S×S; BSR scaled; FP32 accum */
+// TOP4MXBSSPS
 void _tile_top4mxbssps(__tile1024i *tdst, __m512i src1, __m512i src2, const int imm8);
 /* _tile_top2bf16ps — BF16 rank-2 OP; FP32 accum; no scaling */
+// TOP2BF16PS
 void _tile_top2bf16ps(__tile1024i *tdst, __m512i src1, __m512i src2);
 /* _tile_top4bssd — signed A × signed B */
+// TOP4BSSD
 void _tile_top4bssd(__tile1024i *tdst, __m512i src1, __m512i src2);
 /* _tile_top4bsud — signed A × unsigned B */
+// TOP4BSUD
 void _tile_top4bsud(__tile1024i *tdst, __m512i src1, __m512i src2);
 /* _tile_top4busd — unsigned A × signed B */
+// TOP4BUSD
 void _tile_top4busd(__tile1024i *tdst, __m512i src1, __m512i src2);
 /* _tile_top4buud — unsigned A × unsigned B */
+// TOP4BUUD
 void _tile_top4buud(__tile1024i *tdst, __m512i src1, __m512i src2);
 
 /* _bsrinit — Init BSR to 0x7F (E8M0 scale=1) */
+// BSRINIT
 void _bsrinit(void);
 /* _bsrmovf — Write full BSR from two ZMMs */
+// BSRMOVF
 void _bsrmovf(__m512i a_scales, __m512i b_scales);
 /* _bsrmovh — write direction */
+// BSRMOVH
 void _bsrmovh(__m512i a_scales);
 /* _bsrmovh_r — read direction */
+// BSRMOVH
 __m512i _bsrmovh_r(void);
 /* _bsrmovl — write direction */
+// BSRMOVL
 void _bsrmovl(__m512i b_scales);
 /* _bsrmovl_r — read direction */
+// BSRMOVL
 __m512i _bsrmovl_r(void);

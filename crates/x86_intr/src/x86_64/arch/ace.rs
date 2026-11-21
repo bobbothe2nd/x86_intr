@@ -13,6 +13,7 @@ use crate::{arch::__tile1024i, ValidSimdReg};
 /// Convert one packed FP16 vector to BF8 E5M2, non-saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtph_bf8(a: __m512h) -> __m256i {
     let dst;
@@ -31,6 +32,7 @@ pub unsafe fn _mm512_cvtph_bf8(a: __m512h) -> __m256i {
 /// Convert one packed FP16 vector to HF8 E4M3, non-saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtph_hf8(a: __m512h) -> __m256i {
     let dst;
@@ -49,6 +51,7 @@ pub unsafe fn _mm512_cvtph_hf8(a: __m512h) -> __m256i {
 /// Convert one packed FP16 vector to BF8 E5M2, saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtphs_bf8(a: __m512h) -> __m256i {
     let dst;
@@ -67,6 +70,7 @@ pub unsafe fn _mm512_cvtphs_bf8(a: __m512h) -> __m256i {
 /// Convert one packed FP16 vector to HF8 E4M3, saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtphs_hf8(a: __m512h) -> __m256i {
     let dst;
@@ -85,6 +89,7 @@ pub unsafe fn _mm512_cvtphs_hf8(a: __m512h) -> __m256i {
 /// Convert two packed FP16 vector to BF8 E5M2, non-saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvt2ph_bf8(a: __m512h, b: __m512h) -> __m512i {
     let dst;
@@ -104,6 +109,7 @@ pub unsafe fn _mm512_cvt2ph_bf8(a: __m512h, b: __m512h) -> __m512i {
 /// Convert two packed FP16 vector to HF8 E4M3, non-saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvt2ph_hf8(a: __m512h, b: __m512h) -> __m512i {
     let dst;
@@ -123,6 +129,7 @@ pub unsafe fn _mm512_cvt2ph_hf8(a: __m512h, b: __m512h) -> __m512i {
 /// Convert two packed FP16 vector to BF8 E5M2, saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvt2phs_bf8(a: __m512h, b: __m512h) -> __m512i {
     let dst;
@@ -142,6 +149,7 @@ pub unsafe fn _mm512_cvt2phs_bf8(a: __m512h, b: __m512h) -> __m512i {
 /// Convert two packed FP16 vector to HF8 E4M3, saturating.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvt2phs_hf8(a: __m512h, b: __m512h) -> __m512i {
     let dst;
@@ -161,6 +169,7 @@ pub unsafe fn _mm512_cvt2phs_hf8(a: __m512h, b: __m512h) -> __m512i {
 /// Convert two packed FP32 vectors to one packed FP16 vector. Supports embedded rounding at 512-bit width.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvt2ps_phx(a: __m512, b: __m512) -> __m512h {
     let dst;
@@ -180,6 +189,7 @@ pub unsafe fn _mm512_cvt2ps_phx(a: __m512, b: __m512) -> __m512h {
 /// Convert packed FP16 to BF8 E5M2 using bias rounding term, non-saturating. `a` contains the INT8 bias values; `b` contains the FP16 values.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasph_bf8(a: __m512i, b: __m512h) -> __m256i {
     let dst;
@@ -199,6 +209,7 @@ pub unsafe fn _mm512_cvtbiasph_bf8(a: __m512i, b: __m512h) -> __m256i {
 /// Convert packed FP16 to HF8 E4M3 using bias rounding term, non-saturating. `a` contains the INT8 bias values; `b` contains the FP16 values.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasph_hf8(a: __m512i, b: __m512h) -> __m256i {
     let dst;
@@ -218,6 +229,7 @@ pub unsafe fn _mm512_cvtbiasph_hf8(a: __m512i, b: __m512h) -> __m256i {
 /// Convert packed FP16 to BF8 E5M2 using bias rounding term, saturating. `a` contains the INT8 bias values; `b` contains the FP16 values.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasphs_bf8(a: __m512i, b: __m512h) -> __m256i {
     let dst;
@@ -237,6 +249,7 @@ pub unsafe fn _mm512_cvtbiasphs_bf8(a: __m512i, b: __m512h) -> __m256i {
 /// Convert packed FP16 to HF8 E4M3 using bias rounding term, saturating. `a` contains the INT8 bias values; `b` contains the FP16 values.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasphs_hf8(a: __m512i, b: __m512h) -> __m256i {
     let dst;
@@ -256,6 +269,7 @@ pub unsafe fn _mm512_cvtbiasphs_hf8(a: __m512i, b: __m512h) -> __m256i {
 /// Convert packed FP8 E4M3 to packed FP16. Conversion is exact; no rounding required.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvthf8_ph(a: __m256i) -> __m512h {
     let dst;
@@ -275,6 +289,7 @@ pub unsafe fn _mm512_cvthf8_ph(a: __m256i) -> __m512h {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtps_bf8(a: __m512) -> __m256i {
     let dst;
@@ -294,6 +309,7 @@ pub unsafe fn _mm512_cvtps_bf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtpss_bf8(a: __m512) -> __m256i {
     let dst;
@@ -313,6 +329,7 @@ pub unsafe fn _mm512_cvtpss_bf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtps_hf8(a: __m512) -> __m256i {
     let dst;
@@ -332,6 +349,7 @@ pub unsafe fn _mm512_cvtps_hf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtpss_hf8(a: __m512) -> __m256i {
     let dst;
@@ -351,6 +369,7 @@ pub unsafe fn _mm512_cvtpss_hf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtrops_hf8(a: __m512) -> __m256i {
     let dst;
@@ -370,6 +389,7 @@ pub unsafe fn _mm512_cvtrops_hf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtropss_hf8(a: __m512) -> __m256i {
     let dst;
@@ -389,6 +409,7 @@ pub unsafe fn _mm512_cvtropss_hf8(a: __m512) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasps_bf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -409,6 +430,7 @@ pub unsafe fn _mm512_cvtbiasps_bf8(a: __m512, b: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiaspss_bf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -429,6 +451,7 @@ pub unsafe fn _mm512_cvtbiaspss_bf8(a: __m512, b: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiasps_hf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -449,6 +472,7 @@ pub unsafe fn _mm512_cvtbiasps_hf8(a: __m512, b: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbiaspss_hf8(a: __m512, b: __m512i) -> __m256i {
     let dst;
@@ -469,6 +493,7 @@ pub unsafe fn _mm512_cvtbiaspss_hf8(a: __m512, b: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbf8_ps(a: __m128i) -> __m512 {
     let dst;
@@ -488,6 +513,7 @@ pub unsafe fn _mm512_cvtbf8_ps(a: __m128i) -> __m512 {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvthf8_ps(a: __m128i) -> __m512 {
     let dst;
@@ -507,6 +533,7 @@ pub unsafe fn _mm512_cvthf8_ps(a: __m128i) -> __m512 {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtf8_bf4s(a: __m512i) -> __m256i {
     let dst;
@@ -526,6 +553,7 @@ pub unsafe fn _mm512_cvtf8_bf4s(a: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvthf8_bf4s(a: __m512i) -> __m256i {
     let dst;
@@ -545,6 +573,7 @@ pub unsafe fn _mm512_cvthf8_bf4s(a: __m512i) -> __m256i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtbf4_hf8(a: __m256i) -> __m512i {
     let dst;
@@ -564,6 +593,7 @@ pub unsafe fn _mm512_cvtbf4_hf8(a: __m256i) -> __m512i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_cvtf8_bf6s(a: __m512i) -> __m512i {
     let dst;
@@ -583,8 +613,9 @@ pub unsafe fn _mm512_cvtf8_bf6s(a: __m512i) -> __m512i {
 ///
 /// Requires `avx10.2`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512f")]
-pub unsafe fn _mm512_cvtfhf8(a: __m512i) -> __m512i {
+pub unsafe fn _mm512_cvtf6_hf8(a: __m512i) -> __m512i {
     let dst;
 
     unsafe {
@@ -602,6 +633,7 @@ pub unsafe fn _mm512_cvtfhf8(a: __m512i) -> __m512i {
 ///
 /// Requires `avx512-bw`/`avx512bw`
 #[cfg(feature = "avx10")]
+#[inline]
 #[target_feature(enable = "avx512bw")]
 pub unsafe fn _mm512_cvtssepi32_epi8(a: __m512i) -> __m128i {
     let dst;
@@ -618,12 +650,14 @@ pub unsafe fn _mm512_cvtssepi32_epi8(a: __m512i) -> __m128i {
 }
 
 /// `#define ACE_UNPACKB_SIZE(n) (((n) & 0x7) << 2)`
-pub const fn ace_unpackb_size(n: u8) -> u8 {
+#[inline(always)]
+pub const fn ACE_UNPACKB_SIZE(n: u8) -> u8 {
     (n & 0x7) << 2
 }
 
 /// `#define ACE_UNPACKB_START(s) (((s) & 0x3) << 0)`
-pub const fn ace_unpackb_start(s: u8) -> u8 {
+#[inline(always)]
+pub const fn ACE_UNPACKB_START(s: u8) -> u8 {
     s & 0x3
 }
 
@@ -633,6 +667,7 @@ pub const ACE_UNPACKB_SEXT: u8 = 1 << 5;
 /// Unpack packed sub-byte elements (2–7 bits) to bytes; imm8 selects element size, start offset within the packed block, and optional sign extension.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _mm512_unpackb<const IMM8: u8>(a: __m512i) -> __m512i {
     let dst;
@@ -652,6 +687,7 @@ pub unsafe fn _mm512_unpackb<const IMM8: u8>(a: __m512i) -> __m512i {
 /// Read a row from a tile register to a ZMM vector register.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _tile_movrow<const TSRC: u8>(row: u32) -> __m512i
 where
@@ -674,6 +710,7 @@ where
 /// Write a row to a tile register from a ZMM vector register.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _tile_setrow<const TDST: u8>(row: u32, src: __m512i)
 where
@@ -692,6 +729,7 @@ where
 /// Write a column to a tile register from a ZMM vector register.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
 pub unsafe fn _tile_setcol<const TDST: u8>(col: u32, src: __m512i)
 where
@@ -710,8 +748,9 @@ where
 /// Read a row from a tile register to a ZMM vector register.
 ///
 /// Requires `avx10.2`
+#[inline]
 #[target_feature(enable = "avx512f")]
-pub unsafe fn _tile_cvtrowd2p<const TSRC: u8>(row: u32) -> __m512i
+pub unsafe fn _tile_cvtrowd2ps<const TSRC: u8>(row: u32) -> __m512i
 where
     __tile1024i<TSRC>: ValidSimdReg,
 {
@@ -729,12 +768,37 @@ where
     dst
 }
 
+/// Move a tile row to zmm1, converting FP32 to BF16 packed into the high word of each dword.
+///
+/// Requires `avx10.2`
+#[inline]
+#[target_feature(enable = "avx512f")]
+pub unsafe fn _tile_cvtrowps2bf16h<const TSRC: u8>(row: u32) -> __m512i
+where
+    __tile1024i<TSRC>: ValidSimdReg,
+{
+    let dst;
+
+    unsafe {
+        asm!(
+            "tcvtrowps2bf16h {dst}, tmm{TSRC}, {row:e}",
+            dst = out(zmm_reg) dst,
+            row = in(reg) row,
+            TSRC = const TSRC,
+        );
+    }
+
+    dst
+}
+
 /// `#define ACE_SCALE_A(g) (((g) & 0x3) << 4)`
-pub const fn ace_scale_a(g: u8) -> u8 {
+#[inline(always)]
+pub const fn ACE_SCALE_A(g: u8) -> u8 {
     (g & 0x3) << 4
 }
 
 /// `#define ACE_SCALE_B(g) (((g) & 0x3) << 0)`
-pub const fn ace_scale_b(g: u8) -> u8 {
+#[inline(always)]
+pub const fn ACE_SCALE_B(g: u8) -> u8 {
     g & 0x3
 }

@@ -1,3 +1,5 @@
+/* https://x86ecosystem.org/wp-content/uploads/2026/06/ACE_v1_Specification_public_1_15.pdf */
+
 /* cvtph_bf8 — BF8 (E5M2), non-saturating */
 __m256i _mm512_cvtph_bf8(__m512h a);
 /* cvtph_hf8 — HF8 (E4M3), non-saturating */

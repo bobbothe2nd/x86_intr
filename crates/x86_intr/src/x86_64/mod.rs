@@ -26,7 +26,7 @@ mod tests {
     use super::{concat_u32, split_u64, u32x2};
 
     #[test]
-    fn splut_concat_uint() {
+    fn split_concat_uint() {
         let x = 0xABCDEF987654321;
         let u32x2 { hi, lo } = split_u64(x);
         let y = concat_u32(lo, hi);
