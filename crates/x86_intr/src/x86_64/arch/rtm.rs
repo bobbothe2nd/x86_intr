@@ -61,14 +61,14 @@ pub unsafe fn _xend() {
     }
 }
 
-/// Query the transactional execution status, return 1 if inside a transactionally executing RTM or HLE region, and return 0 otherwise.
+/// Query the transactional execution status, return true if inside a transactionally executing RTM or HLE region.
 ///
 /// Requires `rtm`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_xtest)
 #[inline(always)]
-pub unsafe fn _xtest() -> u8 {
-    let dst;
+pub unsafe fn _xtest() -> bool {
+    let dst: u8;
 
     unsafe {
         asm!(
@@ -77,19 +77,19 @@ pub unsafe fn _xtest() -> u8 {
             dst = out(reg_byte) dst,
             options(nostack, nomem)
         );
-    }
 
-    dst
+        core::mem::transmute::<u8, bool>(dst)
+    }
 }
 
-/// Query the transactional execution status, return 0 if inside a transactionally executing RTM or HLE region, and return 1 otherwise.
+/// Query the transactional execution status, return false if inside a transactionally executing RTM or HLE region.
 ///
 /// Requires `rtm`
 ///
 /// [Intel's documentation](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html#text=_xtest)
 #[inline(always)]
-pub unsafe fn xtestn() -> u8 {
-    let dst;
+pub unsafe fn xtestn() -> bool {
+    let dst: u8;
 
     unsafe {
         asm!(
@@ -98,7 +98,7 @@ pub unsafe fn xtestn() -> u8 {
             dst = out(reg_byte) dst,
             options(nostack, nomem)
         );
-    }
 
-    dst
+        core::mem::transmute::<u8, bool>(dst)
+    }
 }
