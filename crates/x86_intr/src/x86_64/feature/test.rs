@@ -39,20 +39,6 @@ static CPUID_8000_0000_0_EAX: AtomicU32 = AtomicU32::new(0);
 static CPUID_8000_0001_0_EDX: AtomicU32 = AtomicU32::new(0);
 static CPUID_8000_0008_0_EBX: AtomicU32 = AtomicU32::new(0);
 
-/// Get EAX register of CPUID:7.0
-#[deprecated = "use cpuid_7_0_eax instead"]
-#[inline(always)]
-pub fn cpuid_7_eax() -> u32 {
-    cpuid_7_0_eax()
-}
-
-/// Get EAX register of CPUID:8000'0000.0
-#[deprecated = "use cpuid_8000_0000_0_eax instead"]
-#[inline(always)]
-pub fn cpuid_8000_0000_eax() -> u32 {
-    cpuid_8000_0000_0_eax()
-}
-
 #[inline(always)]
 fn set_0_0() -> CpuidResult {
     let cpuid = __cpuid_count(0, 0);
