@@ -17,3 +17,5 @@ version = "0.1"
 [features]
 # TODO: remove when rust supports avx10
 avx10 = []
+# TODO: remove when rust supports ACE bsr*
+ace_bsr = []

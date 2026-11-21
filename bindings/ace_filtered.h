@@ -110,9 +110,6 @@ __m512 _tile_cvtrowd2ps(const __tile1024i *tsrc, unsigned int row);
 /* _tile_cvtrowps2bf16h — high half-word of each dword */
 // TCVTROWPS2BF16H
 __m512i _tile_cvtrowps2bf16h(const __tile1024i *tsrc, unsigned int row);
-
-// === TODO ===
-
 /* _tile_cvtrowps2bf16l — low half-word of each dword */
 // TCVTROWPS2BF16L
 __m512i _tile_cvtrowps2bf16l(const __tile1024i *tsrc, unsigned int row);

@@ -48,6 +48,11 @@ Other intrinsics:
 * `_wrpkru`
 * [ACE](https://x86ecosystem.org/wp-content/uploads/2026/06/ACE_v1_Specification_public_1_15.pdf) (including AMX)
 
+## Crate Features
+
+- `ace_bsr`: Enable `_bsr*` intrinsics not supported on current Rust versions
+- `avx10.2`: Enable certain AVX10.2 intrinsics not supported on current Rust versions
+
 ## Feature Detection
 
 This is different from `std::arch::is_x86_feature_detected` because it only checks CPUID bits. This does not guarantee some features are usable, but the instructions related to that feature will be encoded. All intrinsics in this crate will document exactly what they require to be safe.
